@@ -29,16 +29,26 @@ export const getAllProducts = async (req,res)=>{
     }
 }
 
+//Get Single Product's details
+export const getProductDetails = async (req,res) => {
+    try {
+        const productDetail = await product.findById(req.params.id)
+        res.status(200).json({
+            success:true,
+            productDetail
+        })
+    } catch (error) {
+        res.status(400).json({
+            success:false,
+            error
+        })
+    }
+}
+
 // Update the product 
 export const updateProduct= async (req,res)=>{
     try {
         let savedProduct = await product.findById(req.params.id)
-        if(!savedProduct){
-            res.status(500).json({
-                success:false,
-                error:"No saved product found"
-            })
-        }
         savedProduct.name= req.body.name
         savedProduct.description = req.body.description
         savedProduct.price = req.body.price
@@ -50,6 +60,22 @@ export const updateProduct= async (req,res)=>{
             savedProduct
         })
     } catch (error) {
-        console.log(error.message)
+        res.status(400).json({success:false, error})
+    }
+}
+
+//Delete Product
+export const deleteProduct = async (req,res) =>{
+    try {
+        const delProduct = await product.findByIdAndDelete(req.params.id)
+        res.status(200).json({
+            success:true,
+            delProduct
+        })
+    } catch (error) {
+        res.status(400).json({
+            success:false,
+            error
+        })
     }
 }
