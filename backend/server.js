@@ -5,8 +5,6 @@ import DBConnection from "./config/database.js";
 dotenv.config({path:"./config/config.env"})
 
 const PORT = process.env.PORT
-console.log(process.env.DB_URI)
-
 DBConnection()
 
 
