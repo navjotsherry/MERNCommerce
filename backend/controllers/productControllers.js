@@ -1,9 +1,9 @@
 import product from "../config/db/productSchema.js"
 import ErrorHandler from '../utils/ErrorHandler.js'
-import { asyncAwaitErrorHandler } from "../utils/asyncAwaitErrorHandler.js"
+import asyncAwaitErrorHandler from "../utils/asyncAwaitErrorHandler.js"
 
 // Create New product 
-export const createNewProduct = asyncAwaitErrorHandler(async (req, res)=>{
+export const createNewProduct = asyncAwaitErrorHandler(async (req, res,next)=>{
     
     const productRes = await product.create(req.body)
     res.status(200).json({
