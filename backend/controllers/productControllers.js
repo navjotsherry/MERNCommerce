@@ -14,7 +14,7 @@ export const createNewProduct = asyncAwaitErrorHandler(async (req, res,next)=>{
 })
 
 //Get All the products
-export const getAllProducts = async (req,res)=>{
+export const getAllProducts = asyncAwaitErrorHandler(async (req,res)=>{
    
         const allProducts = await product.find()
         res.status(200).json({
@@ -22,10 +22,10 @@ export const getAllProducts = async (req,res)=>{
             allProducts
         })
     
-}
+})
 
 //Get Single Product's details
-export const getProductDetails = async (req,res,next) => {
+export const getProductDetails = asyncAwaitErrorHandler(async (req,res,next) => {
     const productDetail = await product.findById(req.params.id)
     if(!productDetail){
         return next(new ErrorHandler("Product Not Found",404))
@@ -35,10 +35,10 @@ export const getProductDetails = async (req,res,next) => {
         productDetail
     })
    
-}
+})
 
 // Update the product 
-export const updateProduct= async (req,res,next)=>{
+export const updateProduct= asyncAwaitErrorHandler(async (req,res,next)=>{
     let savedProduct = await product.findById(req.params.id)
     if(!savedProduct){
         return next(new ErrorHandler("Product Not Found",404))
@@ -50,10 +50,10 @@ export const updateProduct= async (req,res,next)=>{
         success:true,
         savedProduct
        })
-}
+})
 
 //Delete Product
-export const deleteProduct = async (req,res,next) =>{
+export const deleteProduct = asyncAwaitErrorHandler(async (req,res,next) =>{
         const delProduct = await product.findById(req.params.id)
         if(!delProduct){
             return next(new ErrorHandler("Product Not Found",404))
@@ -63,4 +63,4 @@ export const deleteProduct = async (req,res,next) =>{
             success:true,
             message:"Product deleted successfully"
         })
-}
+})
