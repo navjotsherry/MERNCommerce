@@ -1,6 +1,8 @@
 import product from "../config/db/productSchema.js"
 import ErrorHandler from '../utils/ErrorHandler.js'
 import asyncAwaitErrorHandler from "../utils/asyncAwaitErrorHandler.js"
+import { Features } from "../utils/Feaures.js"
+
 
 // Create New product 
 export const createNewProduct = asyncAwaitErrorHandler(async (req, res,next)=>{
@@ -15,8 +17,8 @@ export const createNewProduct = asyncAwaitErrorHandler(async (req, res,next)=>{
 
 //Get All the products
 export const getAllProducts = asyncAwaitErrorHandler(async (req,res)=>{
-   
-        const allProducts = await product.find()
+        const features = new Features(product.find(),req.query).search()
+        const allProducts = await features.query
         res.status(200).json({
             success:true,
             allProducts
