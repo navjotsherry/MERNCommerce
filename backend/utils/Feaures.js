@@ -20,7 +20,13 @@ export class Features {
 
         const removeKeys = ["keyword","page","limit"]
         removeKeys.forEach(key=> delete queryCopy[key])
-        this.query = this.query.find({...queryCopy})
+
+        //For Price Filtering
+        let queryString = JSON.stringify(queryCopy)
+        queryString = queryString.replace(/\b(gt|lt|gte|lte)\b/g, (key) => `$${key}`)
+        console.log(queryString)
+
+        this.query = this.query.find(JSON.parse(queryString))
         return this;
     };
 

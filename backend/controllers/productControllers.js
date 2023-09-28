@@ -17,6 +17,7 @@ export const createNewProduct = asyncAwaitErrorHandler(async (req, res,next)=>{
 
 //Get All the products
 export const getAllProducts = asyncAwaitErrorHandler(async (req,res)=>{
+        const productCount = await product.countDocuments()
         const features = new Features(product.find(),req.query)
         .search()
         .filtered()
@@ -24,7 +25,8 @@ export const getAllProducts = asyncAwaitErrorHandler(async (req,res)=>{
         const allProducts = await features.query
         res.status(200).json({
             success:true,
-            allProducts
+            allProducts,
+            productCount
         })
     
 })
