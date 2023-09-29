@@ -12,8 +12,11 @@ import userSchema from "../config/db/userSchema.js";
             url:"Sample URL"
         }
     })
+
+    const token = user.jwtToken()
+    
     res.status(201).json({
         success:true,
-        user
+        token
     })
 })
