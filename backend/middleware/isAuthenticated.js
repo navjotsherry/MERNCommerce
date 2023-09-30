@@ -4,7 +4,7 @@ import asyncAwaitErrorHandler from "../utils/asyncAwaitErrorHandler.js";
 import jwt from 'jsonwebtoken'
 
 export const isAuthenticated = asyncAwaitErrorHandler(async (req,res,next)=>{
-    const {token} =req.cookies
+    const {token} = req.cookies
 
     if(!token){
         next(new ErrorHandler("Please login to access this resource",400))
@@ -21,3 +21,11 @@ export const isAuthenticated = asyncAwaitErrorHandler(async (req,res,next)=>{
 
     next()
 })
+
+
+export const isAuthorized = (...roles) =>  (req,res,next) => {
+        if(!roles.includes(req.user.role)){
+            return next(new ErrorHandler(`Role:${req.user.role} is not allowed to access this route`, 401))
+        }
+        next()
+    }

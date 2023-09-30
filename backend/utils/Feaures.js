@@ -24,7 +24,6 @@ export class Features {
         //For Price Filtering
         let queryString = JSON.stringify(queryCopy)
         queryString = queryString.replace(/\b(gt|lt|gte|lte)\b/g, (key) => `$${key}`)
-        console.log(queryString)
 
         this.query = this.query.find(JSON.parse(queryString))
         return this;
