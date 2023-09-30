@@ -56,4 +56,8 @@ user.methods.jwtToken =  function(){
     return jwt.sign({_id:this._id},process.env.JWT_SECRET_KEY, {expiresIn:process.env.JWT_TOKEN_EXPIRE})
 }
 
+user.methods.comparePassword = async function(password){
+    return await bcrypt.compare(password,this.password)
+}
+
 export default mongoose.model("User",user)
