@@ -61,6 +61,13 @@ const productSchema = new mongoose.Schema({
 
         }
     ],
+    user : {
+        type: mongoose.Schema.ObjectId,
+        // We will be facing issues here because ref uses Exact name from user model
+        ref: "user",
+        required:true
+    }
+    ,
     createdAt:{
         type:Date,
         default:Date.now

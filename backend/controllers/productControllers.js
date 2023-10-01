@@ -6,7 +6,9 @@ import { Features } from "../utils/Feaures.js"
 
 // Create New product 
 export const createNewProduct = asyncAwaitErrorHandler(async (req, res,next)=>{
-    
+    req.body.user = req.user.id
+    console.log(req.body)
+
     const productRes = await product.create(req.body)
     res.status(200).json({
         success: true,
