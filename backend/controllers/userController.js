@@ -89,8 +89,23 @@ export const resetPassword = async (req,res,next) =>{
 
     const resetPasswordToken = crypto.createHash("sha256").update(token).toString("hex")
 
+    
+    if(password != confirmPassword){
+        next(new ErrorHandler("Password do not match",400))
+    }
+
     const user = userSchema.findOne({
         resetPasswordToken,
         resetTokenExpiry: {$gt:Date.now()}
     })
+
+    if(!user){
+        next(new ErrorHandler("Invalid or Expired URL",401))
+    }
+
+    user.password = password
+    user.resetPasswordToken = undefined
+    user.resetTokenExpiry = undefined
+    await user.save()
+    sendJWToken(user,200,res)
 }
