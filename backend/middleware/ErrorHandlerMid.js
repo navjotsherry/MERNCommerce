@@ -11,6 +11,11 @@ export const ErrorHandlerMid = (err,req,res,next) => {
         err = new ErrorHandler(err.message,400)
     }
 
+    if(err.name == "JsonWebTokenError"){
+        err.message = `Please send valid Token`
+        err = new ErrorHandler(err.message,400)
+    }
+
     res.status(err.statusCode).json({
         success:false,
         message: err.message
