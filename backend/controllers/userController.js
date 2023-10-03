@@ -83,6 +83,7 @@ export const forgotPassword = asyncAwaitErrorHandler(async (req,res,next)=>{
 
 });
 
+//Reset Password after forgetting with the token generated
 export const resetPassword = async (req,res,next) =>{
     const {password,confirmPassword} = req.body
     const token = req.params.token
@@ -109,3 +110,25 @@ export const resetPassword = async (req,res,next) =>{
     await user.save()
     sendJWToken(user,200,res)
 }
+
+//Change Password 
+
+export const changePassword = asyncAwaitErrorHandler(async (req,res,next) =>{
+    const {oldPassword,password,confirmPassword} = req.body
+    const currentUser = await userSchema.findById(req.user._id).select("+password")
+
+    const isMatched = await currentUser.comparePassword(oldPassword)
+
+    if(!isMatched){
+        return next(new ErrorHandler("Please enter correct password."))
+    }
+    
+    if(password !== confirmPassword){
+        return next(new ErrorHandler("Please enter same password for for Password and confirm Password field",400))
+    }
+
+    currentUser.password = password;
+    const newUser = await currentUser.save()
+
+    sendJWToken(newUser,200,res)
+})
