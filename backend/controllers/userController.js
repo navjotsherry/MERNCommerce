@@ -132,3 +132,96 @@ export const changePassword = asyncAwaitErrorHandler(async (req,res,next) =>{
 
     sendJWToken(newUser,200,res)
 })
+
+//Get my details 
+export const myDetails = asyncAwaitErrorHandler(async (req,res,next)=>{
+    const userId = req.user._id
+
+    const user = await userSchema.findById(userId)
+
+    res.status(200).json({
+        success:true,
+        user
+    })
+})
+
+
+//Update user profile
+export const updateUserProfile = asyncAwaitErrorHandler(async (req,res,next)=>{
+    const { name,email} = req.body
+    
+    const user = await userSchema.findById(req.user._id)
+    user.name = name
+    user.email = email
+
+    await user.save()
+
+    res.status(200).json({
+        user
+    })
+})
+
+//All Admin Routes Below this//
+
+
+//Fetch all the users
+export const getAllUsers = asyncAwaitErrorHandler(async (req,res,next)=>{
+    const users = await userSchema.find()
+
+    res.status(200).json({
+        success:true,
+        users
+    })
+})
+
+//Fetch Single user info
+export const getSingleUser = asyncAwaitErrorHandler(async (req,res,next)=>{
+    const userId = req.params.id
+    const user = await userSchema.findById(userId)
+
+    if(!user){
+        return next(new ErrorHandler("User not Found!",404))
+    }
+
+    res.status(200).json({
+        success:true,
+        user
+    })
+})
+
+//Fetch Single user info
+export const deleteUser = asyncAwaitErrorHandler(async (req,res,next)=>{
+    const userId = req.params.id
+    const user = await userSchema.findById(userId)
+
+    if(!user){
+        return next(new ErrorHandler("User not Found!",404))
+    }
+
+    user.remove()
+
+    res.status(200).json({
+        success:true,
+        message:`User with ${user._id} removed`
+    })
+})
+
+//Update User role
+export const updateUserRole = asyncAwaitErrorHandler(async (req,res,next)=>{
+    const userId = req.params.id
+
+    const user = await userSchema.findById(userId)
+
+    if(!user){
+        return next(new ErrorHandler("User does not exist",404))
+    }
+
+    user.role = req.body.role
+
+    await user.save()
+
+    res.status(200).json({
+        success:true,
+        user
+    })
+})

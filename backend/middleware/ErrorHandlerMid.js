@@ -11,11 +11,25 @@ export const ErrorHandlerMid = (err,req,res,next) => {
         err = new ErrorHandler(err.message,400)
     }
 
+    //JSON web token error
     if(err.name == "JsonWebTokenError"){
         err.message = `Please send valid Token`
         err = new ErrorHandler(err.message,400)
     }
 
+    //JSON web token Expired error
+    if(err.name == "TokenExpiredError"){
+        err.message = `Web token Expired`
+        err = new ErrorHandler(err.message,400)
+    }
+
+    //Mongoose Duplicate key error
+    if(err.code==11000){
+        err.message = `Duplicate ${Object.keys(err.keyValue)} found`
+        err = new ErrorHandler(err.message,400)
+    }
+
+    //Send Error
     res.status(err.statusCode).json({
         success:false,
         message: err.message
