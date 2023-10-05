@@ -1,12 +1,17 @@
 import express from "express";
-import { getAllProducts,createNewProduct, updateProduct, deleteProduct, getProductDetails } from "../controllers/productControllers.js";
+import { getAllProducts,createNewProduct, updateProduct, deleteProduct, getProductDetails, createProductReview, deleteProductReview, getAllProductReviews } from "../controllers/productControllers.js";
 import { isAuthenticated,isAuthorized} from "../middleware/isAuthenticated.js";
 
 const router = express.Router()
 
 
-router.get('/products',isAuthenticated,getAllProducts)
+router.get('/products',getAllProducts)
 router.get('/product/:id',getProductDetails)
+router.put('/productReview/:productId',isAuthenticated,createProductReview)
+router.delete('/productReview/:productId',isAuthenticated,deleteProductReview)
+router.get('/productReview/:productId',isAuthenticated,getAllProductReviews)
+
+
 
 //Admin Routes Below this
 router.post('/new/product',isAuthenticated,isAuthorized("admin"),createNewProduct)

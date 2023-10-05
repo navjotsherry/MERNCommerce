@@ -58,7 +58,12 @@ const productSchema = new mongoose.Schema({
             comment :{
                 type:String
             },
-
+            user : {
+                type: String,
+                // We will be facing issues here because ref uses Exact name from user model
+                ref: "user",
+                required:true
+            }
         }
     ],
     user : {
@@ -70,7 +75,7 @@ const productSchema = new mongoose.Schema({
     ,
     createdAt:{
         type:Date,
-        default:Date.now
+        default:Date.now()
     }
     
 })
