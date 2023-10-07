@@ -59,17 +59,15 @@ const productSchema = new mongoose.Schema({
                 type:String
             },
             user : {
-                type: String,
-                // We will be facing issues here because ref uses Exact name from user model
-                ref: "user",
+                type: mongoose.Schema.ObjectId,
+                ref: "User",
                 required:true
             }
         }
     ],
     user : {
         type: mongoose.Schema.ObjectId,
-        // We will be facing issues here because ref uses Exact name from user model
-        ref: "user",
+        ref: "User",
         required:true
     }
     ,
