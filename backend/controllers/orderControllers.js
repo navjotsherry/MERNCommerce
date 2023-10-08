@@ -9,9 +9,41 @@ export const createOrder = asyncAwaitErrorHandler(async(req,res,next)=>{
 
     const userId = req.user._id
     
-    const order = await orderSchema.create({
+    const order = await orderSchema({
         shippingInfo, orderItems, paymentInfo, paidAt,itemsPrice,taxPrice, shippingPrice, totalPrice, user:userId, paidAt:Date.now()
     })
+
+
+    let orderObject = {}
+
+    if(orderItems){
+        orderItems.forEach(product => {
+
+            if(!orderObject[product.product]){
+                orderObject[product.product] = Number(product.quantity)
+            }else{
+                orderObject[product.product] = orderObject[product.product] + Number(product.quantity)
+            }
+        });
+    }
+
+        const productsOrdered = Object.keys(orderObject);
+        const quantityOrdered = Object.values(orderObject);
+        console.log(productsOrdered,quantityOrdered)
+        
+        for(let i=0;i<productsOrdered.length;i++){
+            const currentProduct = await productSchema.findById(productsOrdered[i])
+            if(!currentProduct){
+                return next(new ErrorHandler(`Product with Id: ${productsOrdered[i]} does not exist anymore`,404))
+            }
+            if(currentProduct.Stock<quantityOrdered[i]){
+                return next(new ErrorHandler(`Stock for product ${currentProduct.name} is lesser than the ordered quantity`))
+            }
+            currentProduct.Stock -= quantityOrdered[i]
+            await currentProduct.save()
+        }
+
+        await order.save()
 
         res.status(200).json({
         success:true,
@@ -61,6 +93,32 @@ export const deleteOrder = asyncAwaitErrorHandler( async(req,res,next)=>{
     if(!order){
         return next(new ErrorHandler("Order not found", 400))
     }
+
+    let orderObject = {}
+
+    const {orderItems, orderStatus} = order
+
+    if(orderItems && orderStatus != "Delivered"){
+        orderItems.forEach(product => {
+
+            if(!orderObject[product.product]){
+                orderObject[product.product] = Number(product.quantity)
+            }else{
+                orderObject[product.product] = orderObject[product.product] + Number(product.quantity)
+            }
+        });
+    }
+
+        const productsOrdered = Object.keys(orderObject);
+        const quantityOrdered = Object.values(orderObject);
+        
+        for(let i=0;i<productsOrdered.length;i++){
+            const currentProduct = await productSchema.findById(productsOrdered[i])
+            currentProduct.Stock += quantityOrdered[i]
+            console.log(currentProduct)
+            await currentProduct.save()
+        }
+
 
     await order.remove()
 
