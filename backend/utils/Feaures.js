@@ -31,7 +31,7 @@ export class Features {
 
     pagination(){
         const currentPage = Number(this.queryStr.page) || 1
-        const limit = Number(this.queryStr.limit) || 10
+        const limit = Number(this.queryStr.limit) || 8
         const skip = limit * (currentPage - 1)
 
         this.query = this.query.limit(limit).skip(skip)

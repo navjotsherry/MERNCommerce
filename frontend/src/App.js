@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header';
 import { BrowserRouter as Router, Route,Routes } from 'react-router-dom';
@@ -7,6 +6,9 @@ import Products from './components/Products';
 import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import Cart from './components/Cart';
+import { Suspense } from 'react';
+import ProductsShimmer from './Layouts/ProductsShimmer';
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
        
     <div className="App min-h-screen">
       <Header/>
+      <Suspense fallback={ProductsShimmer}>
         <Routes>
           <Route path='/' element={<Home/>} />        
           <Route path='/products' element={<Products/>} />        
@@ -21,6 +24,7 @@ function App() {
           <Route path='/contact' element={<Contact/>} />        
           <Route path='/cart' element={<Cart/>} />        
         </Routes>
+        </Suspense>
       
     </div>
 

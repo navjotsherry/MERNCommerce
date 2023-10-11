@@ -1,8 +1,10 @@
-import Helmet from 'react-helmet'
+import {Helmet, HelmetProvider} from 'react-helmet-async'
 const MetaData = ({title}) =>{
-   return( <Helmet>
+   return( <HelmetProvider>
+    <Helmet>
     <title>{title}</title>
     </Helmet>
+    </HelmetProvider>
     )
 }
 
