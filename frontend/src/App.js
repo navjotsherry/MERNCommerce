@@ -6,8 +6,7 @@ import Products from './components/Products';
 import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import Cart from './components/Cart';
-import { Suspense } from 'react';
-import ProductsShimmer from './Layouts/ProductsShimmer';
+import ProductDetails from './components/ProductDetails'
 
 
 function App() {
@@ -16,15 +15,14 @@ function App() {
        
     <div className="App min-h-screen">
       <Header/>
-      <Suspense fallback={ProductsShimmer}>
         <Routes>
           <Route path='/' element={<Home/>} />        
           <Route path='/products' element={<Products/>} />        
           <Route path='/about' element={<AboutUs/>} />        
           <Route path='/contact' element={<Contact/>} />        
-          <Route path='/cart' element={<Cart/>} />        
+          <Route path='/cart' element={<Cart/>} /> 
+          <Route path='/productDetails/:_id' element={<ProductDetails/>} /> 
         </Routes>
-        </Suspense>
       
     </div>
 

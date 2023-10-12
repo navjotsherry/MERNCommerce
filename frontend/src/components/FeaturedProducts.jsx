@@ -6,7 +6,7 @@ import ProductsShimmer from "../Layouts/ProductsShimmer.jsx"
 
 const FeaturedProducts = () => {
     const dispatch = useDispatch()
-  const {isLoading,products,isError} = useSelector(state=> state.product)
+  const {isLoading,products,isError} = useSelector(state=> state.products)
   useEffect(()=>{
     dispatch(fetchProductsfunc())
   },[dispatch])

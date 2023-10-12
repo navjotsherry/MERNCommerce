@@ -6,7 +6,7 @@ const Product = ({product})=>{
     if(!product) return "Loading..."
 
     return (
-        <Link to={`/${product._id}`}>
+        <Link to={`/productDetails/${product._id}`}>
         <div className="p-2 my-6 mx-auto sm:w-72 overflow-hidden md:mx-4 md:my-4 md:w-72 justify-center items-center border border-black shadow-sm hover:shadow-lg rounded-lg cursor-pointer duration-300 hover:scale-110">
             
             <div>
