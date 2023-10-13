@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+
 
 const Cart = () => {
+
+
+  
   return (
-    <div>Cart</div>
+    <div>
+      
+    </div>
   )
 }
 

@@ -25,7 +25,7 @@ const productSlice = createSlice({
         });
         builder.addCase(fetchProductsfunc.rejected, (state,action)=>{
             state.isLoading = false
-            state.err= action.payload
+            state.err= action.error
         });
         builder.addCase(fetchProductsfunc.pending,(state,action)=>{
             state.isLoading = true
