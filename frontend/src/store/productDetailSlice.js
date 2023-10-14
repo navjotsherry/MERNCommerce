@@ -1,7 +1,6 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchProductDetail = createAsyncThunk("getProductDetail", async(_id)=>{
-    console.log(_id)
     const data = await fetch(`http://localhost:5000/api/v1/product/${_id}`)
     return data.json()
 })
@@ -14,15 +13,17 @@ const productDetail = createSlice({
         productDetail : null,
         err : null
     },
-    // reducers:{
-    //     getProduct : (state,action) => {
-    //         state.productDetail.push(action.payload)
-    //     }
-    // },
+    reducers:{
+        clearState : (state,action) => {
+            state.isLoading=false
+            state.productDetail = null
+            state.err = null
+        }
+    },
     extraReducers: (builder)=>{
         builder.addCase(fetchProductDetail.fulfilled,(state,action)=>{
             state.isLoading = false
-            state.productDetail = action.payload
+            state.productDetail = action.payload.productDetail
         });
         builder.addCase(fetchProductDetail.pending,(state,action)=>{
             state.isLoading = true
@@ -34,6 +35,6 @@ const productDetail = createSlice({
     }
 })
 
-// export const {getProduct} = productDetail.actions
+export const {clearState} = productDetail.actions
 
 export default productDetail.reducer

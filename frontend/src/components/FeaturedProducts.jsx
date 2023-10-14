@@ -7,25 +7,19 @@ import toast,{Toaster} from "react-hot-toast"
 
 const FeaturedProducts = () => {
     const dispatch = useDispatch()
+
   const {isLoading,products,err} = useSelector(state=> state.products)
+
   useEffect(()=>{
     dispatch(fetchProductsfunc())
-  },[dispatch,err])
+  },[dispatch])
+
 
 
   if(err) return (
       <>
       {
-        toast.custom((t) => (
-          <div
-            className={`bg-white px-6 py-4 shadow-md rounded-full ${
-              t.visible ? 'animate-enter' : 'animate-leave'
-            }`}
-          >
-            {err.message}
-          </div>
-        ),{id:"Fetch Error"})}
-       <Toaster/>
+        toast.error(err.message,{id:"Error"})}
       </>      
       )
 
@@ -45,7 +39,6 @@ const FeaturedProducts = () => {
 
   return (
     <div className='m-8 flex flex-col items-center sm:flex-row sm:flex-wrap'>
-      <Toaster/>
         { products?.success ? products?.allProducts.map((product)=>{
         return <Product key={product._id} product={product} />
       }) : products?.message && toast.custom((t) => (

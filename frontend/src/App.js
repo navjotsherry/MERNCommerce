@@ -6,6 +6,7 @@ import Products from './components/Products';
 import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import Cart from './components/Cart';
+import { Toaster } from 'react-hot-toast';
 import ProductDetails from './components/ProductDetails'
 
 
@@ -14,7 +15,8 @@ function App() {
     <Router>
        
     <div className="App min-h-screen">
-      <Header/>
+      <Header/>  
+      <Toaster/>
         <Routes>
           <Route path='/' element={<Home/>} />        
           <Route path='/products' element={<Products/>} />        
