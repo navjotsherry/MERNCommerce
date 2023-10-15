@@ -55,7 +55,8 @@ export const createProductReview = asyncAwaitErrorHandler(async (req,res,next) =
     let reviewIndex = 0
 
     const oldReview = currentProduct.reviews.find((element,index) => {
-        if(element.user === req.user.id){
+        console.log(index, " " ,element.user.toString(), " ",req.user.id)
+        if(element.user.toString() === req.user.id){
             reviewIndex = index
             return element
         }
@@ -63,7 +64,6 @@ export const createProductReview = asyncAwaitErrorHandler(async (req,res,next) =
 
     if(oldReview){
         currentProduct.reviews[reviewIndex] = review
-        console.log(currentProduct.reviews)
     }else{
         currentProduct.reviews.push(review)
     }
@@ -80,7 +80,7 @@ export const createProductReview = asyncAwaitErrorHandler(async (req,res,next) =
     currentProduct.rating = avg.toFixed(2)
 
 
-    await currentProduct.save({runValidators:true})
+    await currentProduct.save({runValidators:false})
 
     res.json({
         success:true,

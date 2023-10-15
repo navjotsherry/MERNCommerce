@@ -30,7 +30,7 @@ const productDetail = createSlice({
         });
         builder.addCase(fetchProductDetail.rejected,(state,action)=>{
             state.isLoading = false
-            state.err = action.payload
+            state.err = action.error
         })
     }
 })

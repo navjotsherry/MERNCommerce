@@ -38,7 +38,7 @@ const FeaturedProducts = () => {
   )
 
   return (
-    <div className='m-8 flex flex-col items-center sm:flex-row sm:flex-wrap'>
+    <div className='m-8 flex flex-col items-center md:flex-row md:flex-wrap'>
         { products?.success ? products?.allProducts.map((product)=>{
         return <Product key={product._id} product={product} />
       }) : products?.message && toast.custom((t) => (
