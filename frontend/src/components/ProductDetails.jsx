@@ -6,6 +6,7 @@ import {Carousel,IconButton, Rating} from '@material-tailwind/react'
 import ReactStar from 'react-rating-stars-component'
 import ReviewCard from './ReviewCard'
 import {toast} from 'react-hot-toast'
+import MetaData from '../utils/MetaData'
 
 const ProductDetails = ()=>{
     const dispatch=useDispatch()
@@ -39,6 +40,7 @@ const ProductDetails = ()=>{
     
     return (
         <>
+        <MetaData title={`${productDetail.name} -- Amazon`}/>
         <div className='flex flex-col w-full items-center justify-center md:flex-row md:p-24 lg:p-6'>
         <Carousel
       className="rounded-xl h-auto mx-16 md:w-96 lg:w-3/12"
