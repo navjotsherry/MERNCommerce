@@ -11,7 +11,7 @@ const FeaturedProducts = () => {
   const {isLoading,products,err} = useSelector(state=> state.products)
 
   useEffect(()=>{
-    dispatch(fetchProductsfunc())
+    dispatch(fetchProductsfunc({keyword:"",currentPage:1}))
   },[dispatch])
 
 

@@ -35,8 +35,7 @@ const Header = ()=>{
     
     return (
     <>
-        <div className='h-22 bg-white'></div>
-        <nav className='flex content-between p-1 items-center justify-between md:p-3 border sticky top-0 z-10 w-full rounded-b-lg border-white border-3 backdrop-blur-sm'>
+        <nav className='flex content-between p-1 items-center justify-between md:p-3 border sticky top-0 z-10 w-full shadow-lg rounded-b-lg border-white border-3 backdrop-blur-sm'>
             <Link to='/'><img className={`${isSearching ? "hidden" : " "} w-32`}  src={logo}/></Link>
             <div className={`${isSearching?"flex":"hidden"} border border-black rounded-md active:border-primary focus-within:border-primary p-2 md:flex lg:w-56 xl:w-auto items-center`}><SearchBar setSearching={setSearching}/></div>
             <div className='flex items-center justify-between'>
