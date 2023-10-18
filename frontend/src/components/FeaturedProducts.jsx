@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import Product from "./Product.jsx"
 import { fetchProductsfunc } from '../store/productSlice.js'
 import ProductsShimmer from "../Layouts/ProductsShimmer.jsx"
-import toast,{Toaster} from "react-hot-toast"
+import toast from "react-hot-toast"
 
 const FeaturedProducts = () => {
     const dispatch = useDispatch()
