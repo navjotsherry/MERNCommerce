@@ -14,12 +14,19 @@ export const getAllProducts = asyncAwaitErrorHandler(async (req,res)=>{
         const features = new Features(product.find(),req.query)
         .search()
         .filtered()
-        .pagination();
+
+        const filteredProducts = await features.query.clone(); // Count filtered documents
+        const filteredProductsCount = filteredProducts.length
+
+        features.pagination();
+        
         const allProducts = await features.query
+
         res.status(200).json({
             success:true,
             allProducts,
-            productCount
+            productCount,
+            filteredProductsCount
         })
     
 })

@@ -8,6 +8,7 @@ import Contact from './components/Contact';
 import Cart from './components/Cart';
 import { Toaster } from 'react-hot-toast';
 import ProductDetails from './components/ProductDetails'
+import LoginSignup from './components/LoginSignup';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/contact' element={<Contact/>} />        
           <Route path='/cart' element={<Cart/>} /> 
           <Route path='/productDetails/:_id' element={<ProductDetails/>} /> 
+          <Route path='/login' element={<LoginSignup/>} />
         </Routes>
       
     </div>

@@ -40,13 +40,13 @@ const Products = () => {
     <div className="md:flex md:p-4"> 
       <div className={`${openFilters ? "hidden" : ""} md:hidden text-sm text-right m-2 font-bold text-black cursor-pointer underline hover:text-primary`} onClick={()=>setOpenFilters(true)}>Filter Options</div>
       <div className={`${openFilters ? "" : "hidden"} top-36 mx-auto left-6 z-10 p-4 w-11/12 sticky border-4 md:block rounded-md backdrop-blur-sm md:border-3 border-primary md:static md:w-5/12 lg:w-3/12`}><FilterOptions productValueRange={productValueRange} setCategory={setCategory} setOpenFilters={setOpenFilters} setProductValueRange={setProductValueRange}/></div>
-      <div className="flex mx-auto flex-col w-9/12 md:flex-row md:flex-wrap">{products.allProducts.map(product=> <Product product={product} key={product._id}/>)}</div>
+      <div className="flex mx-auto flex-col w-9/12 md:flex-row md:flex-wrap">{products?.allProducts.map(product=> <Product product={product} key={product._id}/>)}</div>
     </div>
-    <div className={productsPerPage>=products.productCount?"hidden":"flex justify-center items-center"}>
+    <div className={productsPerPage>products.filteredProductsCount?"hidden":"flex justify-center items-center"}>
       <Paginator
         activePage={currentPage}
         itemsCountPerPage={productsPerPage}
-        totalItemsCount = {products.productCount}
+        totalItemsCount = {products.filteredProductsCount}
         onChange = {setCurrentPageNo}
         nextPageText="▶"
         prevPageText= "◀"
