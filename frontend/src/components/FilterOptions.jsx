@@ -14,9 +14,9 @@ const FilterOptions = ({setProductValueRange,productValueRange,setCategory,setOp
   const categories = ["Laptop","Mobile","Memory Cards","Personal Computers","Tablets"]
   return (
     <div>
-      <div className="flex justify-end"><AiOutlineClose onClick={()=>setOpenFilters(false)} className='text-black hover:text-primary duration-300 cursor-pointer text-2xl text-right'/></div>
+      <div className="flex md:hidden justify-end"><AiOutlineClose onClick={()=>setOpenFilters(false)} className='text-black hover:text-primary duration-300 cursor-pointer text-2xl text-right'/></div>
       
-      <div className="text-2xl">Price:</div>
+      <div className="text-2xl md:mt-4">Price:</div>
       <Slider
         getAriaLabel={() => 'Temperature range'}
         value={productValueRange}

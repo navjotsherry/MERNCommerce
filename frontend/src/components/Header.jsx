@@ -48,7 +48,7 @@ const Header = ()=>{
                     <Link to='/contact'><li onClick={() =>{setHamOpen(false)}} className='cursor-pointer text-primary h-full bg-black rounded-md my-4 px-2 py-0 flex items-center text-xl lg:my-0 hover:bg-primary hover:text-black hover:transition-all hover:duration-300'><div className="mx-auto text-2xl p-1">Contact Us</div></li></Link>
                 </ul>
                 <Link to='/cart'><li className={`${isSearching ? "hidden" : " "} cursor-pointer text-primary p-2 ml-6 h-full bg-black rounded-md my-4 md:px-2 md:py-0 flex items-center text-xl md:h-14 lg:h-12 md:my-0 hover:bg-primary hover:text-black hover:transition-all hover:duration-300`}><div className="mx-auto text-2xl p-2 flex items-center"><MdOutlineShoppingCart/><div className="text-sm text-black relative bottom-3 right-1 bg-primary md:p-[0.07rem] rounded-full font-bold">27</div></div></li></Link>
-                <Link to='/login'><li className={`${isSearching ? "hidden" : " "} cursor-pointer text-primary p-2 ml-3 mr-6 h-full bg-black rounded-md my-4 md:px-2 md:py-0 flex items-center text-xl md:h-14 lg:h-12 md:my-0 hover:bg-primary hover:text-black hover:transition-all hover:duration-300`}><div className="mx-auto text-2xl p-2 flex items-center">Login<MdLogin/></div></li></Link>
+                <Link to='/login'><li className={`${isSearching ? "hidden" : " "} cursor-pointer text-primary p-2 ml-3 mr-6 h-full bg-black rounded-md my-4 md:px-2 md:py-0 flex items-center text-xl md:h-14 lg:h-12 md:my-0 hover:bg-primary hover:text-black hover:transition-all hover:duration-300`}><div className="mx-auto text-2xl p-2 flex items-center"><MdLogin/></div></li></Link>
 
             </div>
         </nav>

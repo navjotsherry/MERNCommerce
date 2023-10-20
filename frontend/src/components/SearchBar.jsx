@@ -25,7 +25,7 @@ const SearchBar = ({setSearching}) => {
         <input className='focus:border-none outline-none bg-transparent w-10/12 placeholder:text-gray-800' value={keyword} placeholder='Search' onChange={(e)=>setKeyword(e.target.value)}/>
         <button className="ml-2 cursor-pointer" type='submit'><GrSearch/></button>
     </form>
-    <button onClick={closeSearchHandler} className="cursor-pointer"><GrClose/></button>
+    <button onClick={closeSearchHandler} className="cursor-pointer lg:hidden"><GrClose/></button>
     </div>
 )
 }
