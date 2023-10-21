@@ -4,15 +4,16 @@ import {ErrorHandlerMid} from './middleware/ErrorHandlerMid.js'
 import userRouter from './routes/userRoutes.js'
 import orderRouter from './routes/orderRoutes.js'
 import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
 import cors from 'cors'
-
-
+import fileUpload from 'express-fileupload'
 
 const app = express()
-app.use(express.json())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(fileUpload())
 app.use(cookieParser())
 app.use(cors())
-app.use(express.urlencoded({extended:true}))
 app.use('/api/v1',router)
 app.use('/api/v1',userRouter)
 app.use('/api/v1',orderRouter)
