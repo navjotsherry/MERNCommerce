@@ -9,9 +9,17 @@ import Cart from './components/Cart';
 import { Toaster } from 'react-hot-toast';
 import ProductDetails from './components/ProductDetails'
 import LoginSignup from './components/LoginSignup';
+import { useEffect } from 'react';
+import { reloadUserSlice } from './store/userSlice';
+import { useDispatch } from 'react-redux';
 
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(reloadUserSlice())
+  },[])
+
   return (
     <Router>
        

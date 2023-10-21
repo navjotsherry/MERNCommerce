@@ -13,6 +13,14 @@ export const loginUserSlice = createAsyncThunk("loginSlice",async (authData)=>{
     return data.json()
 })
 
+export const reloadUserSlice = createAsyncThunk("reloadUser", async ()=>{
+    const data = await fetch('http://localhost:5000/api/v1/myProfile',{
+      credentials:"include"
+  })
+    const resData = await data.json()
+    return resData
+  })
+
 export const registerUser = createAsyncThunk("createUser", async (formData)=>{
     console.log(formData)
     const responseData = await fetch("http://localhost:5000/api/v1/register",{
@@ -70,6 +78,21 @@ export const userSlice = createSlice({
             state.user =action.payload
             state.err= null
             state.isLoading=false
+        })
+        builder.addCase(reloadUserSlice.fulfilled,(state,action)=>{
+            state.err = null
+            state.isLoading=false
+            state.user = action.payload
+        })
+        builder.addCase(reloadUserSlice.rejected,(state,action)=>{
+            state.err=action.payload
+            state.isLoading = false
+            state.user = null
+        })
+        builder.addCase(reloadUserSlice.pending,(state,action)=>{
+            state.err = null
+            state.user=null
+            state.isLoading = true
         })
     }
 })
