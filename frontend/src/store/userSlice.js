@@ -1,6 +1,4 @@
-import { create } from "@mui/material/styles/createTransitions";
 import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
-import { json } from "react-router-dom";
 
 export const loginUserSlice = createAsyncThunk("loginSlice",async (authData)=>{
     const data = await fetch("http://localhost:5000/api/v1/login",{
@@ -9,6 +7,7 @@ export const loginUserSlice = createAsyncThunk("loginSlice",async (authData)=>{
           'Content-Type': 'application/json'
         },
         method: "POST",
+        credentials:"include",
         body: JSON.stringify(authData)
     })
     return data.json()
