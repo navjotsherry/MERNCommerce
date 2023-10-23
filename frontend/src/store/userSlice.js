@@ -13,6 +13,19 @@ export const loginUserSlice = createAsyncThunk("loginSlice",async (authData)=>{
     return data.json()
 })
 
+export const logoutUserSlice = createAsyncThunk("logoutSlice",async ()=>{
+    const data = await fetch("http://localhost:5000/api/v1/logout",{
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "GET",
+        credentials:"include"
+    })
+    return data.json()
+})
+
+
 export const reloadUserSlice = createAsyncThunk("reloadUser", async ()=>{
     const data = await fetch('http://localhost:5000/api/v1/myProfile',{
       credentials:"include"
@@ -22,7 +35,6 @@ export const reloadUserSlice = createAsyncThunk("reloadUser", async ()=>{
   })
 
 export const registerUser = createAsyncThunk("createUser", async (formData)=>{
-    console.log(formData)
     const responseData = await fetch("http://localhost:5000/api/v1/register",{
         headers: {
             'Accept': 'application/json',
@@ -92,6 +104,21 @@ export const userSlice = createSlice({
         builder.addCase(reloadUserSlice.pending,(state,action)=>{
             state.err = null
             state.user=null
+            state.isLoading = true
+        })
+        builder.addCase(logoutUserSlice.fulfilled,(state,action)=>{
+            state.err = null
+            state.isLoading = null
+            state.user = action.payload
+        })
+        builder.addCase(logoutUserSlice.rejected,(state,action)=>{
+            state.err = action.payload
+            state.isLoading = false
+            state.user = null
+        })
+        builder.addCase(logoutUserSlice.pending,(state,action)=>{
+            state.err = null
+            state.user= null
             state.isLoading = true
         })
     }
