@@ -20,6 +20,9 @@ const LoginSignup = () => {
             localStorage.setItem("user",JSON.stringify(user.user))
             return navigate('/account')
         }
+        if(!user?.success){
+                toaster.error(user?.message,{id:"Validation"})
+        }
     },[user])
 
     const handlePhotoSubmit = (e)=>{
