@@ -8,6 +8,10 @@ import crypto from 'crypto'
 
 
  export const registerUser = asyncAwaitErrorHandler(async (req,res,next)=>{
+    if(req.body.avatar != 'undefined'){
+        console.log(req.body)
+    }
+    
     const {name,email,password} = req.body
     const user = await userSchema.create({
         name, email,password,

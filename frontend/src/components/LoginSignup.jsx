@@ -42,13 +42,14 @@ const LoginSignup = () => {
             if(authData.password !== authData.confirmPassword){
                  return toaster.error("Passwords do not match",{id:"PasswordMismatch"}) 
             }
-            // const formData = new FormData()
+            const formData = new FormData()
 
-            // formData.set("name",authData.name)
-            // formData.set("email",authData.email)
-            // formData.set("password",authData.password)
-            // formData.set("avatar",avatar)
-            dispatch(registerUser({name:authData.name,email:authData.email,password:authData.password}))
+            formData.set("name",authData.name)
+            formData.set("email",authData.email)
+            formData.set("password",authData.password)
+            formData.set("avatar",avatar)
+            // dispatch(registerUser({name:authData.name,email:authData.email,password:authData.password}))
+            dispatch(registerUser(formData))
         }else{
             dispatch(loginUserSlice({"email" : authData.email , "password":authData.password}))
 

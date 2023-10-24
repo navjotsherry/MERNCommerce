@@ -36,12 +36,12 @@ export const reloadUserSlice = createAsyncThunk("reloadUser", async ()=>{
 
 export const registerUser = createAsyncThunk("createUser", async (formData)=>{
     const responseData = await fetch("http://localhost:5000/api/v1/register",{
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
+        // headers: {
+        //     'Accept': 'application/json',
+        //     'Content-Type': 'multipart/formdata'
+        //   },
         method:'POST',
-        body:JSON.stringify(formData)
+        body:formData
     })
     return responseData.json()
 })
