@@ -9,20 +9,23 @@ const LoginSignup = () => {
     const [signup,setSignup] = useState(false)
     const [authData,setAuthData] = useState({name:"",email:"",password:"",confirmPassword:""})
     const [avatar,setAvatar] = useState()
-    const [avatarPreview,setAvatarPreview] = useState("https://beforeigosolutions.com/wp-content/uploads/2021/12/dummy-profile-pic-300x300-1.png")
+    const [avatarPreview,setAvatarPreview] = useState()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const user = useSelector(state=> state.user.user)
 
     useEffect(()=>{
+        //To prevent displaying errors initially on first render
+        if(avatarPreview){
+            if(!user?.success && user?.message){
+                toaster.error(user?.message,{id:"Validation"})
+            }
+        }
         if(user?.user){
-            localStorage.setItem("user",JSON.stringify(user.user))
             return navigate('/account')
         }
-        if(!user?.success){
-                toaster.error(user?.message,{id:"Validation"})
-        }
+        setAvatarPreview("https://res.cloudinary.com/dfu4k1hcl/image/upload/v1698195657/avatars/gcgatnlv3am0cxnprzu2.png")
     },[user])
 
     const handlePhotoSubmit = (e)=>{
@@ -50,12 +53,14 @@ const LoginSignup = () => {
             formData.set("name",authData.name)
             formData.set("email",authData.email)
             formData.set("password",authData.password)
-            formData.set("avatar",avatar)
+            if(avatar){
+                formData.set("avatar",avatar)
+            }
+            
             // dispatch(registerUser({name:authData.name,email:authData.email,password:authData.password}))
             dispatch(registerUser(formData))
         }else{
             dispatch(loginUserSlice({"email" : authData.email , "password":authData.password}))
-
         }
     }
 

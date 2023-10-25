@@ -5,19 +5,30 @@ import { sendJWToken } from "../utils/sendJWToken.js";
 import sendEmail from "../utils/sendEmail.js";
 import userRouter from "../routes/userRoutes.js";
 import crypto from 'crypto'
+import cloudinary from 'cloudinary'
 
+    let myCloud
 
  export const registerUser = asyncAwaitErrorHandler(async (req,res,next)=>{
-    if(req.body.avatar != 'undefined'){
-        console.log(req.body)
+    const {name,email,password,avatar} = req.body
+    if(avatar){
+        myCloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
+            folder:'avatars',
+            width:150,
+            crop:"scale"
+        })
+    }else{
+        myCloud = {
+            public_id: "avatars/gcgatnlv3am0cxnprzu2",
+            secure_url: "https://res.cloudinary.com/dfu4k1hcl/image/upload/v1698195657/avatars/gcgatnlv3am0cxnprzu2.png"
+        }
     }
     
-    const {name,email,password} = req.body
     const user = await userSchema.create({
         name, email,password,
         avatar:{
-            publicId: "Sample Public ID",
-            url:"Sample URL"
+            publicId: myCloud.public_id,
+            url:myCloud.secure_url
         }
     })
 

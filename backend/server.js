@@ -1,7 +1,7 @@
 import app from "./app.js";
 import dotenv from 'dotenv'
 import DBConnection from "./config/database.js";
-import {v2 as cloudinary} from 'cloudinary'
+import cloudinary from 'cloudinary'
 
 // Handling Uncaught Exception
 process.on("uncaughtException",()=>{
@@ -17,7 +17,7 @@ DBConnection()
 cloudinary.config({
     cloud_name:process.env.CLOUD_NAME,
     api_key:process.env.CLOUD_API_KEY,
-    secret_key:process.env.CLOUD_SECRET_KEY
+    api_secret:process.env.CLOUD_SECRET_KEY
 })
 
 const server = app.listen(PORT, ()=>{
