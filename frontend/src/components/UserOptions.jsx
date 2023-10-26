@@ -1,14 +1,16 @@
 import React from 'react'
 import { MdPerson3,MdLogout } from 'react-icons/md'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import { logoutUserSlice } from '../store/userSlice'
 
 const UserOptions = ({isSearching,isUserOptionsOpen,UserOptionsOpenClick}) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const handleLogout = ()=>{
         dispatch(logoutUserSlice())
         UserOptionsOpenClick()
+        navigate("/login")
     }
 
   return (
@@ -19,8 +21,8 @@ const UserOptions = ({isSearching,isUserOptionsOpen,UserOptionsOpenClick}) => {
             </div>
         </li>
         {isUserOptionsOpen && <ul className='absolute top-20 right-16 text-center rounded-sm text-xl text-primary p-2 bg-black'>
-            <li className='px-4 py-2 border-b-2 border-primary cursor-pointer hover:bg-primary hover:text-black duration-300'>My Account</li>
-            <li className='px-4 py-2 border-b-2 border-primary cursor-pointer hover:bg-primary hover:text-black duration-300'>My Orders</li>
+            <Link to="/account"><li className='px-4 py-2 border-b-2 border-primary cursor-pointer hover:bg-primary hover:text-black duration-300' onClick={UserOptionsOpenClick}>My Account</li></Link>
+            <li className='px-4 py-2 border-b-2 border-primary cursor-pointer hover:bg-primary hover:text-black duration-300' onClick={UserOptionsOpenClick}>My Orders</li>
             <li onClick={handleLogout} className='px-4 py-2 hover:bg-primary cursor-pointer flex items-center justify-center hover:text-black duration-300' ><MdLogout className='mr-2'/> Logout</li>
         </ul>}
 

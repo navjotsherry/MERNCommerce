@@ -9,7 +9,8 @@ const LoginSignup = () => {
     const [signup,setSignup] = useState(false)
     const [authData,setAuthData] = useState({name:"",email:"",password:"",confirmPassword:""})
     const [avatar,setAvatar] = useState()
-    const [avatarPreview,setAvatarPreview] = useState()
+    const [avatarPreview,setAvatarPreview] = useState("https://res.cloudinary.com/dfu4k1hcl/image/upload/v1698195657/avatars/gcgatnlv3am0cxnprzu2.png")
+    const [isRendered,setIsRendered] = useState(null)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -17,16 +18,17 @@ const LoginSignup = () => {
 
     useEffect(()=>{
         //To prevent displaying errors initially on first render
-        if(avatarPreview){
+        if(isRendered){
             if(!user?.success && user?.message){
                 toaster.error(user?.message,{id:"Validation"})
             }
         }
+        console.log("Iran")
         if(user?.user){
-            return navigate('/account')
+            return navigate('/')
         }
-        setAvatarPreview("https://res.cloudinary.com/dfu4k1hcl/image/upload/v1698195657/avatars/gcgatnlv3am0cxnprzu2.png")
-    },[user])
+        setIsRendered(true)
+    },[user,navigate])
 
     const handlePhotoSubmit = (e)=>{
         if(!e.target.files[0]){
@@ -34,7 +36,7 @@ const LoginSignup = () => {
         }
         const reader = new FileReader()
         reader.onload = () =>{
-            if(reader.readyState == 2){
+            if(reader.readyState === 2){
                 setAvatar(reader.result)
                 setAvatarPreview(reader.result)
             }

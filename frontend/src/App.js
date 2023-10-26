@@ -6,20 +6,23 @@ import Products from './components/Products';
 import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import Cart from './components/Cart';
+import Profile from './components/Profile';
 import { Toaster } from 'react-hot-toast';
 import ProductDetails from './components/ProductDetails'
 import LoginSignup from './components/LoginSignup';
 import { useEffect } from 'react';
 import { reloadUserSlice } from './store/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import ProtectedRoutes from './components/Routes/ProtectedRoutes';
 
 
 function App() {
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(reloadUserSlice())
-  },[])
+  },[dispatch])
 
+  const {isAuthenticated} = useSelector(state => state.user)
   return (
     <Router>
        
@@ -32,9 +35,14 @@ function App() {
           <Route path='/products' element={<Products/>} /> 
           <Route path='/about' element={<AboutUs/>} />        
           <Route path='/contact' element={<Contact/>} />        
-          <Route path='/cart' element={<Cart/>} /> 
+           
           <Route path='/productDetails/:_id' element={<ProductDetails/>} /> 
           <Route path='/login' element={<LoginSignup/>} />
+          
+          <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated}/>}>
+            <Route path='/account' element={<Profile/>} />
+            <Route path='/cart' element={<Cart/>} />
+          </Route>
         </Routes>
       
     </div>

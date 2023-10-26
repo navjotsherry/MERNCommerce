@@ -34,8 +34,9 @@ export const reloadUserSlice = createAsyncThunk("reloadUser", async ()=>{
     return resData
   })
 
-export const registerUser = createAsyncThunk("createUser", async (formData)=>{
-    const responseData = await fetch("http://localhost:5000/api/v1/register",{
+export const registerUser = createAsyncThunk("createUser", async (formData,{rejectWithValue})=>{
+    try{
+        const responseData = await fetch("http://localhost:5000/api/v1/register",{
         // headers: {
         //     'Accept': 'application/json',
         //     'Content-Type': 'multipart/formdata'
@@ -43,7 +44,9 @@ export const registerUser = createAsyncThunk("createUser", async (formData)=>{
         method:'POST',
         body:formData
     })
-    return responseData.json()
+    return responseData.json()}catch(error){
+        return rejectWithValue(error)
+    }
 })
 
 export const userSlice = createSlice({
@@ -66,59 +69,65 @@ export const userSlice = createSlice({
             state.user=action.payload
             state.err=null
             state.isLoading=false
+            state.isAuthenticated = action.payload.success
         })
-        builder.addCase(loginUserSlice.pending,(state,action)=>{
+        .addCase(loginUserSlice.pending,(state,action)=>{
             state.user=null
             state.isLoading=true
         })
-        builder.addCase(loginUserSlice.rejected,(state,action)=>{
+        .addCase(loginUserSlice.rejected,(state,action)=>{
             state.err=action.payload
             state.user=null
             state.isLoading=false
         })
-        builder.addCase(registerUser.pending,(state,action)=>{
+        .addCase(registerUser.pending,(state,action)=>{
             state.user=null
             state.isLoading=true
             state.err = false
         })
-        builder.addCase(registerUser.rejected,(state,action)=>{
+        .addCase(registerUser.rejected,(state,action)=>{
             state.user=null
             state.err = action.payload
             state.isLoading = false
         })
-        builder.addCase(registerUser.fulfilled,(state,action)=>{
+        .addCase(registerUser.fulfilled,(state,action)=>{
             state.user =action.payload
             state.err= null
             state.isLoading=false
+            state.isAuthenticated = action.payload.success
         })
-        builder.addCase(reloadUserSlice.fulfilled,(state,action)=>{
+        .addCase(reloadUserSlice.fulfilled,(state,action)=>{
             state.err = null
             state.isLoading=false
+            state.isAuthenticated = action.payload.success
             state.user = action.payload
         })
-        builder.addCase(reloadUserSlice.rejected,(state,action)=>{
+        .addCase(reloadUserSlice.rejected,(state,action)=>{
             state.err=action.payload
             state.isLoading = false
             state.user = null
         })
-        builder.addCase(reloadUserSlice.pending,(state,action)=>{
+        .addCase(reloadUserSlice.pending,(state,action)=>{
             state.err = null
             state.user=null
             state.isLoading = true
         })
-        builder.addCase(logoutUserSlice.fulfilled,(state,action)=>{
+        .addCase(logoutUserSlice.fulfilled,(state,action)=>{
             state.err = null
             state.isLoading = null
             state.user = action.payload
+            state.isAuthenticated = false
         })
-        builder.addCase(logoutUserSlice.rejected,(state,action)=>{
+        .addCase(logoutUserSlice.rejected,(state,action)=>{
             state.err = action.payload
             state.isLoading = false
             state.user = null
+            state.isAuthenticated = false
         })
-        builder.addCase(logoutUserSlice.pending,(state,action)=>{
+        .addCase(logoutUserSlice.pending,(state,action)=>{
             state.err = null
             state.user= null
+            state.isAuthenticated =false
             state.isLoading = true
         })
     }
