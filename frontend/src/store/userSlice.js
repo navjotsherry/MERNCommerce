@@ -13,6 +13,16 @@ export const loginUserSlice = createAsyncThunk("loginSlice",async (authData)=>{
     return data.json()
 })
 
+export const updateUserSlice = createAsyncThunk('updateUserProfile',async (updatedData)=>{
+    const data = await fetch('http://localhost:5000/api/v1/updateProfile',{
+        method:"PUT",
+        credentials:"include",
+        body:updatedData
+    })
+    return data.json()
+})
+
+
 export const logoutUserSlice = createAsyncThunk("logoutSlice",async ()=>{
     const data = await fetch("http://localhost:5000/api/v1/logout",{
         headers: {

@@ -23,7 +23,6 @@ const LoginSignup = () => {
                 toaster.error(user?.message,{id:"Validation"})
             }
         }
-        console.log("Iran")
         if(user?.user){
             return navigate('/')
         }
