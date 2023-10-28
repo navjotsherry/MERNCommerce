@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import {MdEmail,MdLockOpen,MdPerson} from 'react-icons/md'
-import { loginUserSlice, registerUser } from '../store/userSlice'
+import { loginUserSlice, registerUser } from '../../store/userSlice'
 import {useDispatch,useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import toaster from 'react-hot-toast'

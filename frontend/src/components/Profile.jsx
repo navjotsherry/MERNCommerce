@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import {FaPenNib} from 'react-icons/fa'
 import { updateUserSlice } from '../store/userSlice'
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -65,7 +66,7 @@ const Profile = () => {
         </div>
         <div className="flex justify-center items-center">
             <button className='rounded-md text-md mx-4 bg-black text-primary hover:bg-primary p-2 hover:text-black duration-300'> My Orders</button>
-            <button className='rounded-md text-md mx-4 bg-black text-primary hover:bg-primary p-2 hover:text-black duration-300'>Change Password</button>
+            <Link to="/changepassword"><button className='rounded-md text-md mx-4 bg-black text-primary hover:bg-primary p-2 hover:text-black duration-300'>Change Password</button></Link>
         </div>
         {(updateData.name || updateData.email || updateData.avatar) && 
         <div className="grid my-4 place-items-center"><button onClick={handleSaveProfile} className='rounded-md text-md mx-4 bg-black text-primary hover:bg-primary p-2 hover:text-black duration-300'>Save My Profile</button></div>}

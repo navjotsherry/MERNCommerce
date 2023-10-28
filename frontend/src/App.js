@@ -9,11 +9,12 @@ import Cart from './components/Cart';
 import Profile from './components/Profile';
 import { Toaster } from 'react-hot-toast';
 import ProductDetails from './components/ProductDetails'
-import LoginSignup from './components/LoginSignup';
+import LoginSignup from './components/Authentication/LoginSignup';
 import { useEffect } from 'react';
 import { reloadUserSlice } from './store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoutes from './components/Routes/ProtectedRoutes';
+import ChangePassword from './components/Authentication/ChangePassword';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated}/>}>
             <Route path='/account' element={<Profile/>} />
             <Route path='/cart' element={<Cart/>} />
+            <Route path='/changepassword' element={<ChangePassword/>}/>
           </Route>
         </Routes>
       
