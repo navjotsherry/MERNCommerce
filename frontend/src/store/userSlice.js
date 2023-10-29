@@ -35,6 +35,19 @@ export const logoutUserSlice = createAsyncThunk("logoutSlice",async ()=>{
     return data.json()
 })
 
+export const changePassword = createAsyncThunk('changePassword',async(passwordsObject)=>{
+    const data = await fetch('http://localhost:5000/api/v1/changePassword',{
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        method:"PUT",
+        credentials:"include",
+        body: JSON.stringify(passwordsObject)
+    })
+    return data.json()
+})
+
 
 export const reloadUserSlice = createAsyncThunk("reloadUser", async ()=>{
     const data = await fetch('http://localhost:5000/api/v1/myProfile',{

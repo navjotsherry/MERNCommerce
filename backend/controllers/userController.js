@@ -7,9 +7,9 @@ import userRouter from "../routes/userRoutes.js";
 import crypto from 'crypto'
 import cloudinary from 'cloudinary'
 
-    let myCloud
 
  export const registerUser = asyncAwaitErrorHandler(async (req,res,next)=>{
+    let myCloud
     const {name,email,password,avatar} = req.body
     if(avatar){
         myCloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
@@ -139,7 +139,7 @@ export const changePassword = asyncAwaitErrorHandler(async (req,res,next) =>{
     }
     
     if(password !== confirmPassword){
-        return next(new ErrorHandler("Please enter same password for for Password and confirm Password field",400))
+        return next(new ErrorHandler("Please enter same password for Password and confirm Password field",400))
     }
 
     currentUser.password = password;
