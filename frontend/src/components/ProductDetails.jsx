@@ -1,16 +1,18 @@
 import {useParams} from 'react-router-dom'
 import { fetchProductDetail, clearState } from '../store/productDetailSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import {Carousel,IconButton, Rating} from '@material-tailwind/react'
 import ReactStar from 'react-rating-stars-component'
 import ReviewCard from './ReviewCard'
 import {toast} from 'react-hot-toast'
 import MetaData from '../utils/MetaData'
+import { addProduct } from '../store/cartSlice'
 
 const ProductDetails = ()=>{
     const dispatch=useDispatch()
     const {_id} = useParams()
+    const [quantity,setQuantity] = useState(1)
     const product = useSelector(state=>state.product)
     const {productDetail,err} = useSelector(state=>state.product)
     useEffect(()=>{
@@ -18,6 +20,15 @@ const ProductDetails = ()=>{
         return ()=>{
             dispatch(clearState())}
     },[dispatch])
+
+    const addToCart = ()=>{
+      const {_id,name,price,images,category} = product.productDetail
+      const itemToCart = {
+        _id,quantity,name,price,category,
+        image:images[0].url
+      }
+      dispatch(addProduct(itemToCart))
+    }
 
     useEffect(()=>{
         if(err){
@@ -28,12 +39,30 @@ const ProductDetails = ()=>{
     },[err])
 
     const changeCartValue =(e)=>{
-        if(e.target.value > 999){
-            e.target.value = 999
+        if(Number(e.target.value > product.productDetail.Stock)){
+          return setQuantity(Number(product.productDetail.Stock))
         }
-        if(e.target.value<=0){
-            e.target.value = 1
+        if(Number(e.target.value) > 999){
+            return setQuantity(Number(999))
         }
+        if(e.target.value<=1){
+           return setQuantity(1)
+        }
+        setQuantity(Number(e.target.value))
+    }
+
+    const decreaseValue=(e)=>{
+      if(quantity <= 1){
+        return setQuantity(1)
+      }
+      setQuantity(quantity-1)
+    }
+
+    const increaseValue=(e)=>{
+      if(Number(quantity + 1 > product.productDetail.Stock)){
+        return setQuantity(Number(product.productDetail.Stock))
+      }
+      setQuantity(quantity+1)
     }
 
     if(!productDetail) return "Loading"
@@ -108,11 +137,11 @@ const ProductDetails = ()=>{
         <div className='my-4 xl:my-8 text-3xl lg:text-4xl'>${productDetail?.price}</div>
         <div className={productDetail?.Stock < 1 ? "hidden" : "flex flex-col lg:flex-row xl:mt-8"}>
             <div className="flex w-32">
-                <button className="grid place-items-center bg-primary hover:bg-black hover:text-primary hover:duration-300 px-3 rounded-l-md text-3xl py-2">-</button>
-                    <input className='[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border border-y-2 border-primary w-4/12 text-center' onChange={(e)=>changeCartValue(e)} min="1" max="999" type="number" defaultValue={1} />
-                <button className="grid place-items-center hover:bg-black hover:text-primary hover:duration-300 bg-primary px-3 rounded-r-md text-2xl py-2">+</button>
+                <button onClick={decreaseValue} className="grid place-items-center bg-primary hover:bg-black hover:text-primary hover:duration-300 px-3 rounded-l-md text-3xl py-2">-</button>
+                    <input className='[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border border-y-2 border-primary w-4/12 text-center' value={quantity} onChange={(e)=>changeCartValue(e)} min="1" max="999" type="number" defaultValue={1} />
+                <button onClick={increaseValue} className="grid place-items-center hover:bg-black hover:text-primary hover:duration-300 bg-primary px-3 rounded-r-md text-2xl py-2">+</button>
             </div>
-            <button className='bg-primary hover:bg-black hover:text-primary hover:duration-300 my-2 w-28 rounded-md p-2 lg:my-0 lg:mx-4'>Add to Cart</button>
+            <button onClick={addToCart} className='bg-primary hover:bg-black hover:text-primary hover:duration-300 my-2 w-28 rounded-md p-2 lg:my-0 lg:mx-4'>Add to Cart</button>
         </div>
         {productDetail.Stock < 5 && productDetail.Stock >=0 ? 
         <div className={"text-sm my-1 text-red-700"}>{productDetail.Stock === 0 ? "No" : `Only ${productDetail.Stock}`} items left in stock</div>

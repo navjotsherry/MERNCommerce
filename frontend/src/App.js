@@ -36,13 +36,12 @@ function App() {
           <Route path='/products' element={<Products/>} /> 
           <Route path='/about' element={<AboutUs/>} />        
           <Route path='/contact' element={<Contact/>} />        
-           
+          <Route path='/cart' element={<Cart/>} />
           <Route path='/productDetails/:_id' element={<ProductDetails/>} /> 
           <Route path='/login' element={<LoginSignup/>} />
           
           <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated}/>}>
             <Route path='/account' element={<Profile/>} />
-            <Route path='/cart' element={<Cart/>} />
             <Route path='/changepassword' element={<ChangePassword/>}/>
           </Route>
         </Routes>
