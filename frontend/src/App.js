@@ -5,7 +5,7 @@ import Home from './components/Home.jsx';
 import Products from './components/Products';
 import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
-import Cart from './components/Cart';
+import Cart from './components/Cart/Cart';
 import Profile from './components/Profile';
 import { Toaster } from 'react-hot-toast';
 import ProductDetails from './components/ProductDetails'

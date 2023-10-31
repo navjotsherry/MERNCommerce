@@ -22,12 +22,13 @@ const ProductDetails = ()=>{
     },[dispatch])
 
     const addToCart = ()=>{
-      const {_id,name,price,images,category} = product.productDetail
+      const {_id,name,price,images,category,Stock} = product.productDetail
       const itemToCart = {
-        _id,quantity,name,price,category,
+        _id,quantity,name,price,category,Stock,
         image:images[0].url
       }
       dispatch(addProduct(itemToCart))
+      toast.success("Item Added Successfully")
     }
 
     useEffect(()=>{
@@ -138,7 +139,7 @@ const ProductDetails = ()=>{
         <div className={productDetail?.Stock < 1 ? "hidden" : "flex flex-col lg:flex-row xl:mt-8"}>
             <div className="flex w-32">
                 <button onClick={decreaseValue} className="grid place-items-center bg-primary hover:bg-black hover:text-primary hover:duration-300 px-3 rounded-l-md text-3xl py-2">-</button>
-                    <input className='[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border border-y-2 border-primary w-4/12 text-center' value={quantity} onChange={(e)=>changeCartValue(e)} min="1" max="999" type="number" defaultValue={1} />
+                    <input className='[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border border-y-2 border-primary w-4/12 text-center' value={quantity} onChange={(e)=>changeCartValue(e)} type="number" />
                 <button onClick={increaseValue} className="grid place-items-center hover:bg-black hover:text-primary hover:duration-300 bg-primary px-3 rounded-r-md text-2xl py-2">+</button>
             </div>
             <button onClick={addToCart} className='bg-primary hover:bg-black hover:text-primary hover:duration-300 my-2 w-28 rounded-md p-2 lg:my-0 lg:mx-4'>Add to Cart</button>
