@@ -1,7 +1,7 @@
 import React from 'react'
 import {FaTrashAlt} from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
-import { increaseQuantity,decreaseQuantity } from '../../store/cartSlice.js'
+import { increaseQuantity,decreaseQuantity,deleteCartItem } from '../../store/cartSlice.js'
 
 
 const CartItem = ({product}) => {
@@ -21,7 +21,7 @@ const CartItem = ({product}) => {
               <button onClick={()=>dispatch(increaseQuantity(product._id))} className="grid text-xl py-1 place-items-center hover:bg-black hover:text-primary hover:duration-300 bg-primary px-3 rounded-r-md md:text-2xl md:py-2">+</button>
           </div>
           <div className=" justify-start mt-12 md:mt-24 flex items-center md:justify-end w-full">
-             <button className="button p-3 text-xl rounded-md flex items-center text-primary bg-black hover:bg-primary hover:text-black duration-300"><FaTrashAlt/> Delete</button>
+             <button onClick={()=>dispatch(deleteCartItem(product._id))} className="button p-3 text-xl rounded-md flex items-center text-primary bg-black hover:bg-primary hover:text-black duration-300"><FaTrashAlt/> Delete</button>
           </div>
         </div>
       </div>

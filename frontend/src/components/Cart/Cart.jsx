@@ -1,12 +1,15 @@
 import React from 'react'
 import CartItem from './CartItem.jsx'
 import { useSelector} from 'react-redux'
+import EmptyCart from './EmptyCart.jsx'
 
 
 
 const Cart = () => {
   const cart = useSelector(state=>state.cart)
   const subTotal = cart.cartItems.reduce((acc,item)=> acc+item.quantity*item.price,0)
+
+  if(cart.cartItems.length === 0) return <EmptyCart/>
 
   return (
     <div className='flex flex-col-reverse md:flex-row'>
