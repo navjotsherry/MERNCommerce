@@ -2,12 +2,14 @@ import React from 'react'
 import CartItem from './CartItem.jsx'
 import { useSelector} from 'react-redux'
 import EmptyCart from './EmptyCart.jsx'
+import { useNavigate } from 'react-router-dom'
 
 
 
 const Cart = () => {
   const cart = useSelector(state=>state.cart)
   const subTotal = cart.cartItems.reduce((acc,item)=> acc+item.quantity*item.price,0)
+  const navigate = useNavigate()
 
   if(cart.cartItems.length === 0) return <EmptyCart/>
 
@@ -21,7 +23,7 @@ const Cart = () => {
           <div className="text-xl">Subtotal ({cart.totalCartItems } Items): </div>
           <div className="text-2xl">${subTotal}</div>
         </div>
-        <button className="text-2xl max-h-20 text-center p-4 rounded-md text-primary bg-black hover:bg-primary hover:text-black duration-300 ">Checkout</button>
+        <button onClick={()=> navigate("/login?redirect=shipping")} className="text-2xl max-h-20 text-center p-4 rounded-md text-primary bg-black hover:bg-primary hover:text-black duration-300 ">Checkout</button>
       </div>
     </div>
   )

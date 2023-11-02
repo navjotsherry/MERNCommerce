@@ -15,6 +15,7 @@ import { reloadUserSlice } from './store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoutes from './components/Routes/ProtectedRoutes';
 import ChangePassword from './components/Authentication/ChangePassword';
+import Shipping from './components/Shipping/Shipping';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated}/>}>
             <Route path='/account' element={<Profile/>} />
             <Route path='/changepassword' element={<ChangePassword/>}/>
+            <Route path='/shipping' element={<Shipping/>}/>
           </Route>
         </Routes>
       

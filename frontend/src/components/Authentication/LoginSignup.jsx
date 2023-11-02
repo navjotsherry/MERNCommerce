@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import {MdEmail,MdLockOpen,MdPerson} from 'react-icons/md'
 import { loginUserSlice, registerUser } from '../../store/userSlice'
 import {useDispatch,useSelector} from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import toaster from 'react-hot-toast'
 
 const LoginSignup = () => {
@@ -13,8 +13,10 @@ const LoginSignup = () => {
     const [isRendered,setIsRendered] = useState(null)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
 
     const user = useSelector(state=> state.user.user)
+    const redirectUrl = searchParams.get('redirect') ? searchParams.get('redirect') : 'account'
 
     useEffect(()=>{
         //To prevent displaying errors initially on first render
@@ -24,10 +26,10 @@ const LoginSignup = () => {
             }
         }
         if(user?.user){
-            return navigate('/')
+            return navigate("/"+redirectUrl)
         }
         setIsRendered(true)
-    },[user,navigate])
+    },[user,navigate,redirectUrl])
 
     const handlePhotoSubmit = (e)=>{
         if(!e.target.files[0]){
