@@ -4,9 +4,11 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 export const cartSlice = createSlice({
     name:"cart",
     initialState : localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {
-        cartItems:[],
-        totalCartItems:0
-    },
+            cartItems:[],
+            totalCartItems:0,
+            shippingInfo:{}
+        }
+    ,
     reducers:{
         addProduct:(state,action)=>{
             const item = action.payload
