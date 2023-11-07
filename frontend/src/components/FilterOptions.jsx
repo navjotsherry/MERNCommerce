@@ -37,7 +37,7 @@ const FilterOptions = ({ setProductValueRange, productValueRange, setCategory, s
                 getAriaValueText={() => "333"}
             />
 
-            {/* Categories selection. */
+            {/* Categories selection. */}
             <div className="text-2xl mt-3">Categories:</div>
             {categories.map((element) => {
                 return <div key={element} className="ml-4 cursor-pointer" onClick={() => setCategoryFunc(element)}>{element}</div>
