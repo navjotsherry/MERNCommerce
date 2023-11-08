@@ -8,50 +8,50 @@ import toast from "react-hot-toast"
 const FeaturedProducts = () => {
     const dispatch = useDispatch()
 
-  const {isLoading,products,err} = useSelector(state=> state.products)
+    // Use the useSelector hook to access data from the Redux store.
+    const { isLoading, products, err } = useSelector(state => state.products)
 
-  useEffect(()=>{
-    dispatch(fetchProductsfunc({keyword:"",currentPage:1}))
-  },[dispatch])
+    useEffect(() => {
+        // Dispatch an action to fetch products when the component mounts.
+        dispatch(fetchProductsfunc({ keyword: "", currentPage: 1 }))
+    }, [dispatch])
 
+    // Handle error case and display a toast message.
+    if (err) return (
+        <>
+            {toast.error(err.message, { id: "Error" })}
+        </>
+    )
 
-
-  if(err) return (
-      <>
-      {
-        toast.error(err.message,{id:"Error"})}
-      </>      
-      )
-
-  if(isLoading) return (
-    <div className="flex flex-wrap">
-      
-  <ProductsShimmer/>
-  <ProductsShimmer/>
-  <ProductsShimmer/>
-  <ProductsShimmer/>
-  <ProductsShimmer/>
-  <ProductsShimmer/>
-  <ProductsShimmer/>
-  <ProductsShimmer/>
-  </div>
-  )
-
-  return (
-    <div className='m-8 flex flex-col items-center md:flex-row md:flex-wrap'>
-        { products?.success ? products?.allProducts.map((product)=>{
-        return <Product key={product._id} product={product} />
-      }) : products?.message && toast.custom((t) => (
-        <div
-          className={`bg-white px-6 py-4 shadow-md rounded-full ${
-            t.visible ? 'animate-enter' : 'animate-leave'
-          }`}
-        >
-          {products?.message}
+    // Display a loading indicator with shimmer effect while data is being fetched.
+    if (isLoading) return (
+        <div className="flex flex-wrap">
+            <ProductsShimmer />
+            <ProductsShimmer />
+            <ProductsShimmer />
+            <ProductsShimmer />
+            <ProductsShimmer />
+            <ProductsShimmer />
+            <ProductsShimmer />
+            <ProductsShimmer />
         </div>
-      ),{id:"Unable to Fetch Featured Products"}) }
-    </div>
-  )
+    )
+
+    return (
+        <div className='m-8 flex flex-col items-center md:flex-row md:flex-wrap'>
+            {products?.success ? products?.allProducts.map((product) => {
+                return <Product key={product._id} product={product} />
+            }) : products?.message && toast.custom((t) => (
+                <div
+                    className={`bg-white px-6 py-4 shadow-md rounded-full ${
+                        t.visible ? 'animate-enter' : 'animate-leave'
+                    }`}
+                >
+                    {products?.message}
+                </div>
+            ), { id: "Unable to Fetch Featured Products" })}
+        </div>
+    )
 }
 
 export default FeaturedProducts
