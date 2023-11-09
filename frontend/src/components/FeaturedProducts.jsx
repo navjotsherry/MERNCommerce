@@ -48,7 +48,7 @@ const FeaturedProducts = () => {
                     }`}
                 >
                     {products?.message}
-                </div>
+                </div
             ), { id: "Unable to Fetch Featured Products" })}
         </div>
     )
