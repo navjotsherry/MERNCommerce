@@ -10,3 +10,11 @@
     }
  
  }
+
+ .Mui-completed{
+    color: #FF9900;
+ }
+
+ .MuiStepConnector-active{
+    background-color: #FF9900;
+ }
