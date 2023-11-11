@@ -33,7 +33,7 @@ const ShippingStepper = ({activeStep}) => {
         <div className="hidden md:block mt-8">
             <Stepper alternativeLabel activeStep={activeStep} style={stepStyles} >
                 {steps.map((item,index)=>{
-                    return <Step key={item.label}
+                    return <Step key={index}
                      active={activeStep===index ? true : false}
                      completed={activeStep >= index ? true : false}
                      ><StepLabel icon={item.icon}>{item.label}</StepLabel></Step>

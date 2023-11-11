@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProtectedRoutes from './components/Routes/ProtectedRoutes';
 import ChangePassword from './components/Authentication/ChangePassword';
 import Shipping from './components/Shipping/Shipping';
+import ConfirmOrder from './components/Shipping/ConfirmOrder.jsx';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
             <Route path='/account' element={<Profile/>} />
             <Route path='/changepassword' element={<ChangePassword/>}/>
             <Route path='/shipping' element={<Shipping/>}/>
+            <Route path='/confirmOrder' element={<ConfirmOrder/>}/>
           </Route>
         </Routes>
       

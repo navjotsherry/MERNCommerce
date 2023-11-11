@@ -1,8 +1,14 @@
 import React from 'react'
 import { Country, State } from 'country-state-city'
 import ShippingStepper from './ShippingStepper'
+import {useDispatch} from 'react-redux'
+import {addShippingInfo} from '../../store/cartSlice.js'
+import {useNavigate} from 'react-router-dom'
 
 const Shipping = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     // Initialize state variables for user information, country, and state.
     const [userInfo, setUserInfo] = React.useState({ address: "", city: "", phone: "" })
     const [country, setCountry] = React.useState()
@@ -16,7 +22,8 @@ const Shipping = () => {
     // Function to handle the form submission.
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log({...userInfo,country,state})
+        dispatch(addShippingInfo({...userInfo,country,state}))
+        navigate('/confirmOrder')
     }
 
     return (
@@ -34,7 +41,7 @@ const Shipping = () => {
                             {Country.getAllCountries().map(element => <option value={element.isoCode} key={element.isoCode}>{element.name}</option>)}</select>
                         </div>
                         {/* Display the state dropdown when a country is selected. */}
-                        {country && <div className="flex px-4 py-2 items-center w-60 justify-center border mx-8 border-black rounded-md mt-8"><select onChange={(e) => setState(e.target.value)} value={country} type="text" className='mx-2 bg-transparent w-56 outline-none'>
+                        {country && <div className="flex px-4 py-2 items-center w-60 justify-center border mx-8 border-black rounded-md mt-8"><select onChange={(e) => setState(e.target.value)} value={state} type="text" className='mx-2 bg-transparent w-56 outline-none'>
                             {State.getStatesOfCountry(country).map(element => <option onClick={() => setState(element.isoCode)} value={element.isoCode} key={element.isoCode}>{element.name}</option>)}</select>
                         </div>}
                         {/* Submit button to save user information. */}

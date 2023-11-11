@@ -1,4 +1,4 @@
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 
 export const cartSlice = createSlice({
@@ -41,6 +41,7 @@ export const cartSlice = createSlice({
                     itemIndex = index
                     return true
                 }
+                return false
             })
             if(item.quantity <= 1){
                 state.cartItems.splice(itemIndex,1)
@@ -54,20 +55,24 @@ export const cartSlice = createSlice({
         },
         deleteCartItem:(state,action)=>{
             let itemIndex
-            const item = state.cartItems.find((item,index)=>{
+            state.cartItems.find((item,index)=>{
                 if(item._id === action.payload){
                     itemIndex = index
                     return true
                 }
+                return false
             })
             state.cartItems.splice(itemIndex,1)
             state.totalCartItems = state.cartItems.reduce((acc,item) => acc+item.quantity,0)
             localStorage.setItem("cart",JSON.stringify(state))
+        },
+        addShippingInfo : (state,action)=>{
+            state.shippingInfo = action.payload
         }
     }
 })
 
 
-export const {addProduct,increaseQuantity,decreaseQuantity,deleteCartItem} = cartSlice.actions
+export const {addProduct,increaseQuantity,decreaseQuantity,deleteCartItem,addShippingInfo} = cartSlice.actions
 
 export default cartSlice.reducer
