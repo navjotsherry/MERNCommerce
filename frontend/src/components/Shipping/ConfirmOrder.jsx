@@ -2,14 +2,35 @@
 import React from 'react';
 import ShippingStepper from './ShippingStepper'; // Assuming this is a component for a shipping progress indicator
 import { useSelector } from 'react-redux'; // Importing the useSelector hook from react-redux for accessing the Redux store
+import { useNavigate } from 'react-router-dom';
 
 // Functional component for confirming an order
 const ConfirmOrder = () => {
     // Accessing the 'cart' and 'shippingInfo' from the Redux store using useSelector
     const cart = useSelector(state => state.cart);
+
+    const navigate = useNavigate()
     
     // Calculating the subtotal of the items in the cart
     const subTotal = cart.cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+    // Calculating the shipping Charges
+    const shippingCharges = subTotal < 50 ? 12 : 0
+    // Calculating the tax
+    const tax = subTotal * 13/100
+    // Calculating the total amount
+    const totalAmount = subTotal + shippingCharges + tax
+
+    const proceedToPayment = ()=>{
+        const data = {
+            subTotal,
+            shippingCharges,
+            tax,
+            totalAmount
+        }
+        sessionStorage.setItem("paymentData",JSON.stringify(data))
+        navigate('/process/payment')
+    }
+
 
     return (
         <div>
@@ -65,18 +86,18 @@ const ConfirmOrder = () => {
                     </div>
                     <div className="flex justify-between">
                         <div className="text-md">Shipping:</div>
-                        <div className="text-md">{subTotal < 100 ? 20 : 0}</div>
+                        <div className="text-md">{shippingCharges}</div>
                     </div>
                     <div className="flex justify-between">
-                        <div className="text-md">GST:</div>
-                        <div className="text-md">{subTotal * 13 / 100}</div>
+                        <div className="text-md">VAT:</div>
+                        <div className="text-md">{tax}</div>
                     </div>
                     <div className="flex border-t border-gray-600 justify-between">
                         <div className="text-md">Total:</div>
-                        <div className="text-md">$ {subTotal + 0 + subTotal * 13 / 100}</div>
+                        <div className="text-md">$ {totalAmount}</div>
                     </div>
                     {/* Button for proceeding to payment */}
-                    <button className='mx-auto border-red-500 border w-full bg-primary text-black p-2 rounded-md my-3 text-xl hover:text-primary hover:bg-black duration-300'>Proceed to Pay $ {subTotal + 0 + subTotal * 13 / 100}</button>
+                    <button onClick={proceedToPayment} className='mx-auto border-red-500 border w-full bg-primary text-black p-2 rounded-md my-3 text-xl hover:text-primary hover:bg-black duration-300'>Proceed to Pay $ {totalAmount}</button>
                 </div>
             </div>
         </div>
