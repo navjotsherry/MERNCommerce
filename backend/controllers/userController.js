@@ -172,7 +172,7 @@ export const updateUserProfile = asyncAwaitErrorHandler(async (req,res,next)=>{
             //Delete Avatar Logic Will go here
             const deleteAvatar = await cloudinary.v2.api.delete_resources(user.avatar.publicId,  { type: 'upload', resource_type: 'image' })
         }
-        myCloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
+        let myCloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
             folder:'avatars',
             width:150,
             crop:"scale"
