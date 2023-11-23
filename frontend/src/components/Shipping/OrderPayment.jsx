@@ -1,5 +1,5 @@
 import React from 'react'
-import {CardCvcElementComponent, CardCvcElement, CardNumberElement} from '@stripe/react-stripe-js'
+import {CardCvcElementComponent, CardCvcElement, CardNumberElement, Elements} from '@stripe/react-stripe-js'
 import ShippingStepper from './ShippingStepper'
 
 const OrderPayment = () => {
@@ -7,7 +7,9 @@ const OrderPayment = () => {
     <>
     <ShippingStepper activeStep={2}/>
     <div className="">
-    <CardNumberElement/>
+    <Elements>
+        <CardNumberElement/>
+    </Elements>
     </div>
     </>
   )
