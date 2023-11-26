@@ -1,7 +1,7 @@
 // Importing necessary styles and components
 import './App.css';
 import Header from './components/Header';
-import { BrowserRouter as Router, Route, Routes, json } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home.jsx';
 import Products from './components/Products';
 import AboutUs from './components/AboutUs';
@@ -72,7 +72,7 @@ function App() {
             <Route path='/changepassword' element={<ChangePassword />} />
             <Route path='/shipping' element={<Shipping />} />
             <Route path='/confirmOrder' element={<ConfirmOrder />} />
-            <Route path='/process/payment' element={<OrderPayment />} />
+            <Route path='/process/payment' element={<OrderPayment stripeApiKey={stripeApiKey}/>} />
           </Route>
         </Routes>
       </div>
