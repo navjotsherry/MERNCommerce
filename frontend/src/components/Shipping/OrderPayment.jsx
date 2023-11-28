@@ -5,6 +5,7 @@ import {loadStripe} from '@stripe/stripe-js'
 
 const OrderPayment = ({stripeApiKey}) => {
 
+  console.log(stripeApiKey)
   const stripePromise = loadStripe(stripeApiKey)
   const stripeOptions = {
     clientSecret: stripeApiKey,
@@ -12,7 +13,7 @@ const OrderPayment = ({stripeApiKey}) => {
   return (
     <>
     <ShippingStepper activeStep={2}/>
-    <div className="">
+    {/* <div className="">
     <Elements stripe={stripePromise} options={stripeOptions}>
     <form>
       <div className="">
@@ -22,7 +23,7 @@ const OrderPayment = ({stripeApiKey}) => {
       <button>Submit</button>
     </form>
     </Elements>
-    </div>
+    </div> */}
     </>
   )
 }
