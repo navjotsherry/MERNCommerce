@@ -32,11 +32,13 @@ function App() {
   
   //Fetch Stripe API key
   const getStripeAPI = async () =>{
-    const jsonData = await fetch('http://localhost:5000/api/v1/getStripeApiKey',{
+    try{const jsonData = await fetch('http://localhost:5000/api/v1/getStripeApiKey',{
       credentials:'include'
     })
     const data = await jsonData.json()
-    setStripeApiKey(data.stripeApiKey)
+    setStripeApiKey(data.stripeApiKey)}catch(err){
+      console.log(err)
+    }
   }
 
   // Effect to reload user data when the component mounts
