@@ -19,10 +19,10 @@ export const createOrder = asyncAwaitErrorHandler(async(req,res,next)=>{
     if(orderItems){
         orderItems.forEach(product => {
 
-            if(!orderObject[product.product]){
-                orderObject[product.product] = Number(product.quantity)
+            if(!orderObject[product._id]){
+                orderObject[product._id] = Number(product.quantity)
             }else{
-                orderObject[product.product] = orderObject[product.product] + Number(product.quantity)
+                orderObject[product._id] = orderObject[product._id] + Number(product.quantity)
             }
         });
     }
@@ -42,7 +42,6 @@ export const createOrder = asyncAwaitErrorHandler(async(req,res,next)=>{
             currentProduct.Stock -= quantityOrdered[i]
             await currentProduct.save()
         }
-
         await order.save()
 
         res.status(200).json({
@@ -115,7 +114,6 @@ export const deleteOrder = asyncAwaitErrorHandler( async(req,res,next)=>{
         for(let i=0;i<productsOrdered.length;i++){
             const currentProduct = await productSchema.findById(productsOrdered[i])
             currentProduct.Stock += quantityOrdered[i]
-            console.log(currentProduct)
             await currentProduct.save()
         }
 

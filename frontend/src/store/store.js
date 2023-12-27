@@ -3,6 +3,7 @@ import productSlice from './productSlice'
 import productDetailSlice from './productDetailSlice.js'
 import userSlice from './userSlice'
 import cartSlice from './cartSlice'
+import newOrderSlice from './newOrder.js'
 
 
 const store = configureStore({
@@ -10,7 +11,8 @@ const store = configureStore({
         products: productSlice,
         product : productDetailSlice,
         user: userSlice,
-        cart: cartSlice
+        cart: cartSlice,
+        newOrder : newOrderSlice
     }
 })
 

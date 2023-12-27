@@ -1,12 +1,14 @@
 import asyncAwaitErrorHandler from '../utils/asyncAwaitErrorHandler.js'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 export const processPayment = asyncAwaitErrorHandler(async (req,res,next)=>{
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
     const payment = await stripe.paymentIntents.create({
-        amount:req.body.amount,
+        amount:Math.round(req.body.totalAmount*100),
         currency:"cad",
+        description:"ECommerce Purchase",
         metadata:{
             company:"Ecommerce"
         }
