@@ -20,6 +20,7 @@ import Shipping from './components/Shipping/Shipping';
 import ConfirmOrder from './components/Shipping/ConfirmOrder.jsx';
 import OrderPayment from './components/Shipping/OrderPayment.jsx';
 import PaymentSuccess from './components/Shipping/PaymentSuccess.jsx';
+import Orders from './components/Orders.jsx';
 
 // Main App component
 function App() {
@@ -77,6 +78,7 @@ function App() {
             <Route path='/confirmOrder' element={<ConfirmOrder />} />
             <Route path='/process/payment' element={<OrderPayment stripeApiKey={stripeApiKey}/>} />
             <Route path='/paymentSuccess' element={<PaymentSuccess/>} />
+            <Route path='/myorders' element={<Orders/>} />
           </Route>
         </Routes>
       </div>

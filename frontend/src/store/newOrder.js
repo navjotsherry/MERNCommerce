@@ -15,16 +15,18 @@ export const newOrderPlace = createAsyncThunk("placeNewOrder", async(orderDetail
 
 export const newOrderSlice = createSlice({
     name:"newOrder",
-    initialState:{},
+    initialState:{
+        orderDetails: null
+    },
     reducers:{
 
     },
     extraReducers:(builder)=>{
         builder.addCase(newOrderPlace.fulfilled,(state,action)=>{
-            state = action.payload
+            state.orderDetails = action.payload
         })
         builder.addCase(newOrderPlace.rejected,(state,action)=>{
-            state = action.payload
+            state.orderDetails = action.payload
         })
     }
 })

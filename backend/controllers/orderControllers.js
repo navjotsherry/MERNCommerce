@@ -29,7 +29,6 @@ export const createOrder = asyncAwaitErrorHandler(async(req,res,next)=>{
 
         const productsOrdered = Object.keys(orderObject);
         const quantityOrdered = Object.values(orderObject);
-        console.log(productsOrdered,quantityOrdered)
         
         for(let i=0;i<productsOrdered.length;i++){
             const currentProduct = await productSchema.findById(productsOrdered[i])

@@ -30,8 +30,8 @@ const FilterOptions = ({ setProductValueRange, productValueRange, setCategory, s
                 getAriaLabel={() => 'Temperature range'}
                 value={productValueRange}
                 onChange={handleChange}
-                min={20}
-                max={20000}
+                min={1}
+                max={200}
                 valueLabelDisplay="auto"
                 aria-labelledby='range-slider'
                 getAriaValueText={() => "333"}

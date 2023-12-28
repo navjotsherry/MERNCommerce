@@ -62,7 +62,6 @@ const CardPaymentForm = ({clientSecret}) => {
                          "status":"Paid",
                          "id":result.paymentIntent.id
                          }, 
-                     "paidAt": 'Date.now',
                      "itemsPrice": paymentData.subTotal,
                      "taxPrice": paymentData.tax, 
                      "shippingPrice": paymentData.shippingCharges, 
