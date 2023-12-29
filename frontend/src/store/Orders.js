@@ -13,22 +13,36 @@ export const newOrderPlace = createAsyncThunk("placeNewOrder", async(orderDetail
     return orderData.json()
 })
 
-export const newOrderSlice = createSlice({
-    name:"newOrder",
+export const fetchAllOrders = createAsyncThunk("fetchAllOrders", async(orderDetails) => {
+    const orderData = await fetch("http://localhost:5000/api/v1/getMyOrders",{
+        credentials:"include"
+    })
+    return orderData.json()
+})
+
+export const orderSlice = createSlice({
+    name:"Orders",
     initialState:{
-        orderDetails: null
+        newOrder: null,
+        allOrders:null
     },
     reducers:{
 
     },
     extraReducers:(builder)=>{
         builder.addCase(newOrderPlace.fulfilled,(state,action)=>{
-            state.orderDetails = action.payload
+            state.newOrder = action.payload
         })
         builder.addCase(newOrderPlace.rejected,(state,action)=>{
-            state.orderDetails = action.payload
+            state.newOrder = action.payload
+        })
+        builder.addCase(fetchAllOrders.fulfilled,(state,action)=>{
+            state.allOrders = action.payload.orders
+        })
+        builder.addCase(fetchAllOrders.rejected,(state,action)=>{
+            state.allOrders = action.payload
         })
     }
 })
 
-export default newOrderSlice.reducer
+export default orderSlice.reducer

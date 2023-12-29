@@ -93,7 +93,7 @@ const Profile = () => {
       </div>
       {/* Buttons for navigating to My Orders and Change Password */}
       <div className="flex justify-center items-center">
-        <button className='rounded-md text-md mx-4 bg-black text-primary hover:bg-primary p-2 hover:text-black duration-300'> My Orders</button>
+        <Link to='/myorders'><button className='rounded-md text-md mx-4 bg-black text-primary hover:bg-primary p-2 hover:text-black duration-300'> My Orders</button></Link>
         <Link to="/changepassword"><button className='rounded-md text-md mx-4 bg-black text-primary hover:bg-primary p-2 hover:text-black duration-300'>Change Password</button></Link>
       </div>
       {/* Button to save the updated profile */}

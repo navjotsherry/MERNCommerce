@@ -3,7 +3,7 @@ import {CardCvcElement, CardNumberElement,CardExpiryElement, useElements, useStr
 import { FaRegCreditCard } from "react-icons/fa6";
 import { MdVpnKey, MdOutlineEvent } from "react-icons/md";
 import {useSelector, useDispatch} from 'react-redux'
-import { newOrderPlace } from '../../store/newOrder';
+import { newOrderPlace } from '../../store/Orders';
 import Toaster from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
 import { clearCart } from '../../store/cartSlice';
