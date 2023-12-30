@@ -18,10 +18,8 @@ const Orders = () => {
         minWidth:'30',
         flex:0.6,
         renderCell:(params)=>{
-            return(<Link to={`/order/${params.getValue(params.id,"id")}`}>
-                Something
-            </Link>)
-        }
+                return <Link to={`/order/${params.id}`}>{params.id}</Link>;
+              }
         },
         {
             field:"orderQty",
@@ -34,14 +32,20 @@ const Orders = () => {
             field:"status",
             headerName:"Status",
             minWidth:'15',
-            flex:0.3
+            flex:0.3,
+            renderCell:(params)=>{
+                return <Link to={`/order/${params.id}`}>{params.row.status}</Link>;
+              }
         },
         {
             field:"amount",
             headerName:"Total Amount",
             type:"number",
             minWidth:'15',
-            flex:0.3
+            flex:0.3,
+            renderCell:(params)=>{
+                return <Link to={`/order/${params.id}`}>{params.row.amount}</Link>;
+              }
         }
     ]
 
@@ -56,7 +60,7 @@ const Orders = () => {
 
     useEffect(()=>{
         dispatch(fetchAllOrders())
-    })
+    },[])
 
   return (
     <div className='flex flex-col items-center'>
@@ -64,8 +68,9 @@ const Orders = () => {
             <DataGrid
                 rows={row}
                 columns={column}
-                pageSizeOptions={25}
+                pageSizeOptions={[10,20,50,100]}
                 disableRowSelectionOnClick={true}
+                initialState={{pagination:{paginationModel:{pageSize:10}}}}
             />
         </div>
         <div className="">My Orders</div>

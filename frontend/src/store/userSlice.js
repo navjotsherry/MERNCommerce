@@ -77,7 +77,7 @@ export const userSlice = createSlice({
     initialState:{
         isLoading:false,
         user:null,
-        isAuthenticated:false,
+        isAuthenticated:null,
         err:null
     },
     reducers:{

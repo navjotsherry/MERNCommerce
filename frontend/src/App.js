@@ -13,12 +13,13 @@ import ProductDetails from './components/ProductDetails'
 import LoginSignup from './components/Authentication/LoginSignup';
 import { useEffect, useState } from 'react';
 import { reloadUserSlice } from './store/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ProtectedRoutes from './components/Routes/ProtectedRoutes';
 import ChangePassword from './components/Authentication/ChangePassword';
 import Shipping from './components/Shipping/Shipping';
 import ConfirmOrder from './components/Shipping/ConfirmOrder.jsx';
 import OrderPayment from './components/Shipping/OrderPayment.jsx';
+import OrderDetails from './components/OrderDetails.jsx';
 import PaymentSuccess from './components/Shipping/PaymentSuccess.jsx';
 import Orders from './components/Orders.jsx';
 
@@ -28,9 +29,6 @@ function App() {
   const dispatch = useDispatch();
 
   const [stripeApiKey, setStripeApiKey] = useState('')
-
-  // Fetching user authentication status from the Redux store
-  const { isAuthenticated } = useSelector(state => state.user);
   
   //Fetch Stripe API key
   const getStripeAPI = async () =>{
@@ -71,13 +69,14 @@ function App() {
           <Route path='/login' element={<LoginSignup />} />
 
           {/* Protected routes accessible only if the user is authenticated */}
-          <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} />}>
+          <Route element={<ProtectedRoutes/>}>
             <Route path='/account' element={<Profile />} />
             <Route path='/changepassword' element={<ChangePassword />} />
             <Route path='/shipping' element={<Shipping />} />
             <Route path='/confirmOrder' element={<ConfirmOrder />} />
             <Route path='/process/payment' element={<OrderPayment stripeApiKey={stripeApiKey}/>} />
             <Route path='/paymentSuccess' element={<PaymentSuccess/>} />
+            <Route path='/order/:_id' element={<OrderDetails />} />
             <Route path='/myorders' element={<Orders/>} />
           </Route>
         </Routes>

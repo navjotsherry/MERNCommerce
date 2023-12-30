@@ -18,3 +18,9 @@
  .MuiStepConnector-active{
     background-color: #FF9900;
  }
+
+ .css-yrdy0g-MuiDataGrid-columnHeaderRow{
+    background-color: #FF9900;
+    font-size: larger;
+    font-weight: 800;
+ }
