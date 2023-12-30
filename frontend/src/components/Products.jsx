@@ -1,5 +1,5 @@
 // Importing necessary modules and components
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import MetaData from '../utils/MetaData';
 import { useDispatch, useSelector } from 'react-redux';
 import Product from './Product.jsx';
@@ -30,10 +30,33 @@ const Products = () => {
   const { keyword } = useParams();
   const { products, isLoading, err } = useSelector(state => state.products);
 
+  // Debounce function utility
+  function debounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  }
+
+  const debouncedFetchProducts = useCallback(
+    debounce(() => {
+      dispatch(fetchProductsfunc({ keyword, currentPage, productsPerPage, productValueRange, category }));
+    }, 300), // Adjust the debounce time as needed (e.g., 300 milliseconds)
+    [dispatch, keyword, currentPage, category, productsPerPage]
+  );
+
+  // Fetching products on component mount or when products dependencies change
+  useEffect(() => {
+    debouncedFetchProducts()
+  }, [debouncedFetchProducts,productValueRange]);
+
   // Fetching products on component mount or when dependencies change
   useEffect(() => {
     dispatch(fetchProductsfunc({ keyword, currentPage, productsPerPage, productValueRange, category }));
-  }, [dispatch, keyword, currentPage, productValueRange, category, productsPerPage]);
+  }, [dispatch, keyword, currentPage, category, productsPerPage]);
 
   // Handling errors
   if (err) {

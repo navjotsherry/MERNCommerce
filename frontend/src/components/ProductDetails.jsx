@@ -3,12 +3,17 @@ import { useParams } from 'react-router-dom';
 import { fetchProductDetail, clearState } from '../store/productDetailSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Carousel, IconButton, Rating } from '@material-tailwind/react';
+import { Carousel, IconButton } from '@material-tailwind/react';
 import ReactStar from 'react-rating-stars-component';
 import ReviewCard from './ReviewCard';
 import { toast } from 'react-hot-toast';
 import MetaData from '../utils/MetaData';
 import { addProduct } from '../store/cartSlice';
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import Dialog from '@mui/material/Dialog'
+import { DialogActions, TextField } from '@mui/material'
+import Rating from '@mui/material/Rating'
 
 // Functional component for displaying product details
 const ProductDetails = () => {
@@ -18,8 +23,13 @@ const ProductDetails = () => {
     const { _id } = useParams();
     // Local state for quantity
     const [quantity, setQuantity] = useState(1);
+    //Toggle between open and close Review
+    const [dialogOpen,setDialogOpen] = useState(false)
     // Fetching product details and error from Redux store
     const { productDetail, err } = useSelector(state => state.product);
+    //Value for ratings and reviews
+    const [newReview, setNewReview] = useState({review:"",rating:0}) 
+
 
     // Effect to fetch product details when the component mounts
     useEffect(() => {
@@ -207,7 +217,7 @@ const ProductDetails = () => {
                     <div className="text-2xl mt-4 mb-1">Description:</div>
                     <div className="text-sm text-gray-700">{productDetail.description}</div>
                     {/* Add a review button */}
-                    <button className='px-4 py-2 bg-primary hover:bg-black hover:text-primary hover:duration-300 text-lg rounded-md my-3 xl:my-6'>Add a review</button>
+                    <button onClick={()=>setDialogOpen(true)} className='px-4 py-2 bg-primary hover:bg-black hover:text-primary hover:duration-300 text-lg rounded-md my-3 xl:my-6'>Add a review</button>
                 </div>
             </div>
 
@@ -228,6 +238,23 @@ const ProductDetails = () => {
                     </>
                 )}
             </div>
+            <Dialog
+            open={dialogOpen}
+            >
+                <DialogActions>
+                    <div className="flex justify-end w-full">
+                        <button className='bg-primary px-3 py-2 rounded-lg hover:bg-black hover:text-primary duration-300' onClick={()=>setDialogOpen(false)}>X</button>
+                    </div>
+                </DialogActions>
+                <DialogContent >
+                    <Rating name="half-rating" onChange={(e)=>{setNewReview({...newReview, rating:e.target.value})}} value={newReview.rating} precision={0.5} />
+                      <DialogContentText>Enter a review below:</DialogContentText>
+
+                      <TextField
+                        autoFocus={true}
+                      />
+                </DialogContent>
+            </Dialog>
         </>
     );
 };
