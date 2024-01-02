@@ -42,15 +42,18 @@ const Products = () => {
   }
 
   const debouncedFetchProducts = useCallback(
-    debounce(() => {
+    debounce((productValueRange) => {
       dispatch(fetchProductsfunc({ keyword, currentPage, productsPerPage, productValueRange, category }));
-    }, 300), // Adjust the debounce time as needed (e.g., 300 milliseconds)
+    }, 300)
+    
+    ,
+
     [dispatch, keyword, currentPage, category, productsPerPage]
   );
 
   // Fetching products on component mount or when products dependencies change
   useEffect(() => {
-    debouncedFetchProducts()
+    debouncedFetchProducts(productValueRange)
   }, [debouncedFetchProducts,productValueRange]);
 
   // Fetching products on component mount or when dependencies change

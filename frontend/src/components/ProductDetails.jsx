@@ -1,6 +1,6 @@
 // Importing necessary modules and components
 import { useParams } from 'react-router-dom';
-import { fetchProductDetail, clearState } from '../store/productDetailSlice';
+import { fetchProductDetail, clearState, createAreview } from '../store/productDetailSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Carousel, IconButton } from '@material-tailwind/react';
@@ -14,6 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import Dialog from '@mui/material/Dialog'
 import { DialogActions, TextField } from '@mui/material'
 import Rating from '@mui/material/Rating'
+
 
 // Functional component for displaying product details
 const ProductDetails = () => {
@@ -29,6 +30,19 @@ const ProductDetails = () => {
     const { productDetail, err } = useSelector(state => state.product);
     //Value for ratings and reviews
     const [newReview, setNewReview] = useState({review:"",rating:0}) 
+
+    //Function to handle the Review and ratings submission
+    const handleReviewSubmit = ()=>{
+        setDialogOpen(false)
+        const newReviewBody= {
+            "review": {
+                "rating":newReview.rating,
+                "comment":newReview.review
+            },
+            "id":_id
+        }
+        dispatch(createAreview(newReviewBody))
+    }
 
 
     // Effect to fetch product details when the component mounts
@@ -225,8 +239,8 @@ const ProductDetails = () => {
             <div className=" bg-gray-200 ">
                 <div className="underline text-4xl p-2">Reviews</div>
                 {/* Displaying reviews or a message if there are none */}
-                {productDetail.reviews.length > 1 ? (
-                    <div className="flex flex-col px-10 items-center  overflow-y-scroll h-96 md:px-4 md:overflow-y-auto md:flex-row overflow-x-scroll py-2">
+                {productDetail.reviews.length >= 1 ? (
+                    <div className="flex flex-col px-10 items-center  overflow-y-scroll h-auto md:h-96 md:px-4 md:overflow-y-auto md:flex-row overflow-x-scroll py-2">
                         {productDetail.reviews.map((review) => (
                             <ReviewCard key={review._id} reviews={review} />
                         ))}
@@ -246,14 +260,21 @@ const ProductDetails = () => {
                         <button className='bg-primary px-3 py-2 rounded-lg hover:bg-black hover:text-primary duration-300' onClick={()=>setDialogOpen(false)}>X</button>
                     </div>
                 </DialogActions>
-                <DialogContent >
+                <DialogContent className='p-0'>
                     <Rating name="half-rating" onChange={(e)=>{setNewReview({...newReview, rating:e.target.value})}} value={newReview.rating} precision={0.5} />
                       <DialogContentText>Enter a review below:</DialogContentText>
 
                       <TextField
                         autoFocus={true}
+                        value={newReview.review}
+                        onChange={(e)=> setNewReview({...newReview, review:e.target.value})}
                       />
                 </DialogContent>
+                <DialogActions>
+                    <div className="flex justify-end w-full">
+                        <button className='bg-primary px-3 py-2 rounded-lg hover:bg-black hover:text-primary duration-300' onClick={handleReviewSubmit}>Submit</button>
+                    </div>
+                </DialogActions>
             </Dialog>
         </>
     );

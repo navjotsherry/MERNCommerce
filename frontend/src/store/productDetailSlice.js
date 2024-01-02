@@ -5,6 +5,19 @@ export const fetchProductDetail = createAsyncThunk("getProductDetail", async(_id
     return data.json()
 })
 
+export const createAreview = createAsyncThunk("createReview",async (newReviewData)=>{
+    const data = await fetch(`http://localhost:5000/api/v1/productReview/${newReviewData.id}`,{
+        method:"PUT",
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials:"include",
+        body:JSON.stringify(newReviewData)
+    })
+    return data.json()
+})
+
 
 const productDetail = createSlice({
     name:"product",
@@ -31,6 +44,18 @@ const productDetail = createSlice({
         builder.addCase(fetchProductDetail.rejected,(state,action)=>{
             state.isLoading = false
             state.err = action.error
+        })
+        builder.addCase(createAreview.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.productDetail = action.payload.currentProduct
+        })
+        builder.addCase(createAreview.pending,(state,action)=>{
+            state.productDetail = action.payload
+            state.isLoading = true
+        })
+        builder.addCase(createAreview.rejected,(state,action)=>{
+            state.isLoading = false
+            state.productDetail = action.payload
         })
     }
 })
