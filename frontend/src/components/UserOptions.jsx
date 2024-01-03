@@ -1,12 +1,13 @@
 import React from 'react'
 import { MdPerson3,MdLogout } from 'react-icons/md'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link,useNavigate } from 'react-router-dom'
 import { logoutUserSlice } from '../store/userSlice'
 
 const UserOptions = ({isSearching,isUserOptionsOpen,UserOptionsOpenClick}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const user = useSelector(state=> state.user)
     const handleLogout = ()=>{
         dispatch(logoutUserSlice())
         UserOptionsOpenClick()
@@ -21,6 +22,7 @@ const UserOptions = ({isSearching,isUserOptionsOpen,UserOptionsOpenClick}) => {
             </div>
         </li>
         {isUserOptionsOpen && <ul className='absolute top-20 right-16 text-center rounded-sm text-xl text-primary p-2 bg-black'>
+            {user.user.user.role === "admin" && <Link to="/admin-dashboard"><li className='px-4 py-2 border-b-2 border-primary cursor-pointer hover:bg-primary hover:text-black duration-300' onClick={UserOptionsOpenClick}>Admin Dashboard</li></Link>}
             <Link to="/account"><li className='px-4 py-2 border-b-2 border-primary cursor-pointer hover:bg-primary hover:text-black duration-300' onClick={UserOptionsOpenClick}>My Account</li></Link>
             <Link to='myorders'><li className='px-4 py-2 border-b-2 border-primary cursor-pointer hover:bg-primary hover:text-black duration-300' onClick={UserOptionsOpenClick}>My Orders</li></Link>
             <li onClick={handleLogout} className='px-4 py-2 hover:bg-primary cursor-pointer flex items-center justify-center hover:text-black duration-300' ><MdLogout className='mr-2'/> Logout</li>

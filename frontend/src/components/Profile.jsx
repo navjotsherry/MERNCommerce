@@ -55,6 +55,8 @@ const Profile = () => {
     fileReader.readAsDataURL(e.target.files[0]);
   };
 
+  if(!user) return "Loading..."
+
   return (
     <>
       {/* Displaying the user profile information */}
