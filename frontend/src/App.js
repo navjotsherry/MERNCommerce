@@ -23,6 +23,7 @@ import OrderDetails from './components/OrderDetails.jsx';
 import PaymentSuccess from './components/Shipping/PaymentSuccess.jsx';
 import Orders from './components/Orders.jsx';
 import AdminRoutes from './components/Routes/AdminRoutes.js';
+import Dashboard from './components/admin/Dashboard.jsx';
 
 // Main App component
 function App() {
@@ -82,7 +83,7 @@ function App() {
           </Route>
           {/*For Admin Routes */}
           <Route element={<AdminRoutes/>}>
-             <Route path='/admin-dashboard' element={<Orders/>} />
+             <Route path='/admin-dashboard' element={<Dashboard/>} />
           </Route>
         </Routes>
       </div>
