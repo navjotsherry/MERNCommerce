@@ -13,7 +13,7 @@ const FeaturedProducts = () => {
 
     useEffect(() => {
         // Dispatch an action to fetch products when the component mounts.
-        dispatch(fetchProductsfunc({ keyword: "", currentPage: 1 }))
+       dispatch(fetchProductsfunc({ keyword: "", currentPage: 1 }))
     }, [dispatch])
 
     // Handle error case and display a toast message.

@@ -1,15 +1,21 @@
 import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchProductsfunc = createAsyncThunk("fetchProducts", async({keyword="",currentPage=1,productsPerPage,productValueRange=[0,5000],category=""})=>{
+export const fetchProductsfunc = createAsyncThunk("products/fetchProducts", async({keyword="",currentPage=1,productsPerPage,productValueRange=[0,5000],category=""})=>{
     const data = await fetch(`http://localhost:5000/api/v1/products?keyword=${keyword ? keyword :''}&page=${currentPage? currentPage : "1"}&limit=${productsPerPage ? productsPerPage : ""}&price[gte]=${productValueRange ? productValueRange[0] : ""}&price[lte]=${productValueRange ? productValueRange[1]: ""}${category? `&category=${category}`: ""}`)
     const jsonData = await data.json()
     return jsonData
+})
+
+export const fetchProductConstants = createAsyncThunk("product/productCategories",async()=>{
+    const data = await fetch("http://localhost:5000/api/v1/getProductCategories")
+    return data.json()
 })
 
 const productSlice = createSlice({
     name:"products",
     initialState:{
         isLoading:false,
+        productCategories:null,
         products:null,
         err:null
     },
@@ -29,6 +35,18 @@ const productSlice = createSlice({
         });
         builder.addCase(fetchProductsfunc.pending,(state,action)=>{
             state.isLoading = true
+        })
+        builder.addCase(fetchProductConstants.rejected,(state,action)=>{
+            state.isLoading=false
+            state.productCategories=action.payload
+        })
+        builder.addCase(fetchProductConstants.pending,(state,action)=>{
+            state.isLoading=true
+            state.productCategories=null
+        })
+        builder.addCase(fetchProductConstants.fulfilled,(state,action)=>{
+            state.isLoading=false
+            state.productCategories=action.payload.productConstants
         })
     }
 })

@@ -5,6 +5,8 @@ import { Features } from "../utils/Feaures.js"
 import userSchema from "../config/db/userSchema.js"
 import productSchema from "../config/db/productSchema.js"
 import isTaxID from "validator/lib/isTaxID.js"
+import cloudinary from 'cloudinary'
+import productConstants from '../constants/productCategory.js'
 
 
 
@@ -159,11 +161,59 @@ export const getAllProductReviews = asyncAwaitErrorHandler(async (req,res,next)=
 
 
 })
+
+
+export const getProductCategories = asyncAwaitErrorHandler((req,res)=>{
+        res.json({
+            productConstants
+        })
+})
+
+
 //Admin Controllers Below this//
 
 // Create New product 
 export const createNewProduct = asyncAwaitErrorHandler(async (req, res,next)=>{
     req.body.user = req.user.id
+
+    const {name,price,description,category,images} = req.body
+
+    let uploadImages= []
+    
+    let myCloud
+
+    console.log(typeof images)
+
+    const uploadImage = async (image)=>{
+        try {
+            myCloud = await cloudinary.v2.uploader.upload(image,{
+                folder:'product_images',
+                width:400,
+                crop:"scale"
+            }) 
+            
+        } catch (error) {
+            console.log(error)
+        }
+        uploadImages.push({
+            "publicId": myCloud.public_id,
+            "url":myCloud.secure_url
+        })
+    }
+    
+    if(images){
+        if(typeof images == "object"){
+            for (const image of images) {
+                await uploadImage(image)
+            }
+        }
+        if(typeof images == "string"){
+            await uploadImage(images)
+        }
+        
+    }
+
+    req.body.images = uploadImages
 
     const productRes = await product.create(req.body)
     res.status(200).json({
@@ -192,12 +242,36 @@ export const updateProduct= asyncAwaitErrorHandler(async (req,res,next)=>{
 //Delete Product
 export const deleteProduct = asyncAwaitErrorHandler(async (req,res,next) =>{
         const delProduct = await product.findById(req.params.id)
+
+        
         if(!delProduct){
             return next(new ErrorHandler("Product Not Found",404))
         }
+         const {images} =  delProduct
+
+        for (const image of images) {
+                    try {
+                        await cloudinary.v2.api.delete_resources(image.publicId,  { type: 'upload', resource_type: 'image' })
+                    
+                    } catch (error) {
+                        console.log(error)
+                    }
+                 }
+
         await delProduct.remove()
         res.status(200).json({
             success:true,
             message:"Product deleted successfully"
         })
+})
+
+export const getAdminAllProducts = asyncAwaitErrorHandler(async (req,res)=>{
+    
+    const allProducts = await product.find()
+
+    res.status(200).json({
+        success:true,
+        allProducts
+    })
+
 })

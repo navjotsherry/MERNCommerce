@@ -1,5 +1,4 @@
 import React from 'react'
-import SideBar from './Sidebar.jsx'
 import { Chart,CategoryScale,
     LinearScale,
     PointElement,
@@ -55,10 +54,7 @@ const Dashboard = () => {
 
   return (
     <>
-    <div className="md:flex min-h-screen w-full">
-        <div className="md:flex-[0.4] md:min-h-screen">
-            <SideBar />
-        </div>
+    
         <div className='w-full'>
         
             <div className="text-2xl flex w-full justify-center">Dashboard</div>
@@ -91,12 +87,11 @@ const Dashboard = () => {
             <div className="mt-16 w-[80%] mx-auto flex items-center justify-center">
                 <Line data={lineState} options={lineOptions}/>
             </div>
-            <div className="mt-16 w-[80%] mx-auto flex items-center justify-center">
+            <div className="mt-16 w-[70%] mx-auto flex items-center justify-center">
                  <Doughnut  data={doughnutState}/>
             </div>
             
         </div>
-    </div>
     </>)
 }
 

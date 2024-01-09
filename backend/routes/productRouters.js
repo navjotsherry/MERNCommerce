@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllProducts,createNewProduct, updateProduct, deleteProduct, getProductDetails, createProductReview, deleteProductReview, getAllProductReviews } from "../controllers/productControllers.js";
+import { getAllProducts,createNewProduct, updateProduct, deleteProduct, getProductDetails, createProductReview, deleteProductReview, getAllProductReviews, getAdminAllProducts, getProductCategories } from "../controllers/productControllers.js";
 import { isAuthenticated,isAuthorized} from "../middleware/isAuthenticated.js";
 
 const router = express.Router()
@@ -10,6 +10,7 @@ router.get('/product/:id',getProductDetails)
 router.put('/productReview/:productId',isAuthenticated,createProductReview)
 router.delete('/productReview/:productId',isAuthenticated,deleteProductReview)
 router.get('/productReview/:productId',isAuthenticated,getAllProductReviews)
+router.get('/getProductCategories',getProductCategories)
 
 
 
@@ -17,6 +18,7 @@ router.get('/productReview/:productId',isAuthenticated,getAllProductReviews)
 router.post('/new/product',isAuthenticated,isAuthorized("admin"),createNewProduct)
 router.put('/product/:id',isAuthenticated,isAuthorized("admin"),updateProduct)
 router.delete('/product/del/:id',isAuthenticated,isAuthorized("admin"),deleteProduct)
+router.get('/adminproducts',isAuthenticated,isAuthorized("admin"),getAdminAllProducts)
 
 
 export default router
