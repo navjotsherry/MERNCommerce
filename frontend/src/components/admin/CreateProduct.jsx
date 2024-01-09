@@ -81,7 +81,7 @@ const CreateProduct = () => {
            </div>
            <div className="flex flex-col sm:flex-row mx-auto w-full sm:items-center justify-center my-3">
             <label className='flex-[0.5] mx-2' htmlFor="stock">Stock : </label>
-           <input type="number" id='stock' placeholder='Enter product price' className='outline-none block mx-2 px-4 py-2 border-2 border-black rounded-md  focus-within:border-primary' name='Stock' value={formState.Stock} onChange={(e)=>changeFormData(e)} />  
+           <input type="number" id='stock' placeholder='Enter available' className='outline-none block mx-2 px-4 py-2 border-2 border-black rounded-md  focus-within:border-primary' name='Stock' value={formState.Stock} onChange={(e)=>changeFormData(e)} />  
            </div>
            <div className="flex flex-col sm:flex-row mx-auto w-full sm:items-center justify-center my-3">
             <label className='flex-[0.5] mx-2' htmlFor="description">Description : </label>

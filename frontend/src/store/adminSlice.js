@@ -4,7 +4,8 @@ const initialState = {
     isLoading: false,
     adminProducts: [],
     newCreatedProduct:null,
-    deletedProduct:null
+    deletedProduct:null,
+    allOrders:null
 }
 
 export const adminProductSlice = createAsyncThunk("admin/fetchProducts", async ()=>{
@@ -15,7 +16,6 @@ export const adminProductSlice = createAsyncThunk("admin/fetchProducts", async (
 })
 
 export const adminDeleteProductSlice = createAsyncThunk("admin/deleteProducts", async (id)=>{
-    console.log(id)
     const data = await fetch(`http://localhost:5000/api/v1/product/del/${id}`,{
         method:"DELETE",
         credentials:"include"
@@ -29,6 +29,13 @@ export const adminAddProductSlice = createAsyncThunk("admin/addProduct", async (
         credentials:"include",
         body:productInfo
 
+    })
+    return data.json()
+})
+
+export const adminAllOrders = createAsyncThunk("admin/allOrders" , async ()=>{
+    const data = await fetch("http://localhost:5000/api/v1/allOrders",{
+        credentials:"include"
     })
     return data.json()
 })
@@ -64,6 +71,16 @@ export const adminSlice = createSlice({
         }).addCase(adminDeleteProductSlice.rejected,(state,action)=>{
             state.deletedProduct = action.payload
             state.isLoading=false
+        })
+        builder.addCase(adminAllOrders.pending,(state,action)=>{
+            state.isLoading = true
+            state.allOrders = null
+        }).addCase(adminAllOrders.rejected,(state,action)=>{
+            state.isLoading = false
+            state.allOrders = action.payload
+        }).addCase(adminAllOrders.fulfilled,(state,action)=>{
+            state.isLoading= false
+            state.allOrders = action.payload
         })
     }
 })

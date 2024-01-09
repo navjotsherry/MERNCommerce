@@ -1,13 +1,21 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
+import { fetchAllOrders } from '../store/Orders'
 
 const OrderDetails = () => {
     const params = useParams()
+    const dispatch = useDispatch()
     const orders = useSelector(state=> state.Orders.allOrders)
+    useEffect(()=>{
+        if(!orders){
+            dispatch(fetchAllOrders())
+        }
+    },[dispatch])
+    if(!orders) return "Loading..."
     const id = params._id
     const currentOrder = orders.filter((order)=>order._id == id)[0]
-    console.log(currentOrder)
+    
     return (
     <>
     <div className="text-2xl m-3">Order Details for Order#<span className="text-primary">{currentOrder._id}</span></div>

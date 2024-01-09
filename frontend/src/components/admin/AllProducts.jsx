@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { DataGrid } from '@mui/x-data-grid'
-import { adminDeleteProductSlice, adminProductSlice } from '../../store/adminSlice'
+import { adminAddProductSlice, adminDeleteProductSlice, adminProductSlice } from '../../store/adminSlice'
 import { Link } from 'react-router-dom'
 import { BsFillTrashFill } from "react-icons/bs";
 import toast from 'react-hot-toast'
@@ -12,13 +12,24 @@ const AllProducts = () => {
   const dispatch = useDispatch()
   const products = useSelector(state=>state.admin.adminProducts.allProducts)
 
+  const reloadProducts = () =>{
+    setTimeout(()=>{
+      dispatch(adminProductSlice())
+      toast.success(`Product Deleted Successfully.`,{id:"DeleteProduct"})
+    },1500)
+  } 
+
   const deleteProductHandler = (id) =>{
-    toast.success("Product Deleted Successfully... Please reload.")
+    toast.loading(`Deleting Product...`,{id:"DeleteProduct"})
     dispatch(adminDeleteProductSlice(id))
+    reloadProducts()
   } 
   useEffect(()=>{
-    dispatch(adminProductSlice())
+    if(!products){
+      dispatch(adminProductSlice())
+    }
   },[dispatch])
+  
   const row = [
   ]
   const column = [
