@@ -182,7 +182,6 @@ export const createNewProduct = asyncAwaitErrorHandler(async (req, res,next)=>{
     
     let myCloud
 
-    console.log(typeof images)
 
     const uploadImage = async (image)=>{
         try {

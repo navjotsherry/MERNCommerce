@@ -12,7 +12,9 @@ process.on("uncaughtException",()=>{
 dotenv.config({path:"./config/config.env"})
 
 const PORT = process.env.PORT
-DBConnection()
+const DB_URI = process.env.DB_URI
+
+DBConnection(DB_URI)
 
 cloudinary.config({
     cloud_name:process.env.CLOUD_NAME,
