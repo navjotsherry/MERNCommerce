@@ -40,6 +40,24 @@ export const adminAllOrders = createAsyncThunk("admin/allOrders" , async ()=>{
     return data.json()
 })
 
+
+
+export const adminUpdateOrderStatus = createAsyncThunk("admin/updateOrderStatus" , async ({id,shippingStatus})=>{
+    const body = {
+        "orderStatus": shippingStatus
+    }
+    const data = await fetch(`http://localhost:5000/api/v1/updateStatus/${id}`,{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+            "Content-Type":"application/json",
+        },
+        credentials:"include",
+        body:JSON.stringify(body)
+    })
+    return data.json()
+})
+
 export const adminSlice = createSlice({
     name:"adminData",
     initialState,

@@ -28,6 +28,7 @@ import AllProducts from './components/admin/AllProducts.jsx';
 import CreateProduct from './components/admin/CreateProduct.jsx';
 import AllOrders from './components/admin/AllOrders.jsx';
 import AllReviews from './components/admin/AllReviews.jsx';
+import OrderStatusUpdate from './components/admin/OrderStatusUpdate.jsx';
 
 // Main App component
 function App() {
@@ -92,6 +93,7 @@ function App() {
              <Route path='/admin-product' element={<CreateProduct/>} />
              <Route path='/admin-orders' element={<AllOrders/>} />
              <Route path='/admin-reviews' element={<AllReviews/>} />
+             <Route path='/admin-order/:_id' element={<OrderStatusUpdate/>}/>
           </Route>
         </Routes>
       </div>

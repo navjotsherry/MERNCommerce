@@ -47,11 +47,14 @@ const Dashboard = () => {
         },
       };
 
+      let lineInitialLabels = []
+      let lineInitialData = []
+
     const lineState = {
-        labels:["Initial Amount","Final Amount"],
+        labels:lineInitialLabels,
         datasets:[{
             label:"Total Amount",
-            data:[0,3000],
+            data:lineInitialData,
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
         }]
@@ -62,9 +65,14 @@ const Dashboard = () => {
     
 
     if(!products || !orders) return "Loading..."
-    
 
-    const totalSale = orders.reduce((acc,order)=> acc + order.totalPrice,0)
+
+    const totalSale = orders.reduce((acc,order)=> {
+        const nextOrder = acc + order.totalPrice
+        lineInitialLabels.push(order.createdAt)
+        lineInitialData.push(nextOrder)
+        return nextOrder
+    },0)
     
 
     products.forEach((product)=>{
