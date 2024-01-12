@@ -64,7 +64,6 @@ export const createProductReview = asyncAwaitErrorHandler(async (req,res,next) =
     let reviewIndex = 0
 
     const oldReview = currentProduct.reviews.find((element,index) => {
-        console.log(index, " " ,element.user.toString(), " ",req.user.id)
         if(element.user.toString() === req.user.id){
             reviewIndex = index
             return element

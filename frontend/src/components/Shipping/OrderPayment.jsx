@@ -22,7 +22,6 @@ const OrderPayment = ({stripeApiKey}) => {
       body:JSON.stringify(shippingData)
     })
     const jsonData = await data.json()
-    console.log(jsonData)
     setClientSecretState(jsonData.client_secret)
   }
 

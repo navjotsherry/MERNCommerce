@@ -19,7 +19,6 @@ const CardPaymentForm = ({clientSecret}) => {
     const shippingInfo = JSON.parse(localStorage.getItem("cart")).shippingInfo
     const cartItems = JSON.parse(localStorage.getItem("cart")).cartItems
 
-    console.log(shippingInfo)
     const submitHandler = async (e) =>{
         e.preventDefault()
         if(!stripe || !elements) return

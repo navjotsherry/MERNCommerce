@@ -33,8 +33,6 @@ import serverUrl from './url.js';
 
 // Main App component
 function App() {
-  //Initializing dotenv config
-  console.log("server url:",serverUrl)
 
   // Initializing the Redux dispatch function
   const dispatch = useDispatch();
