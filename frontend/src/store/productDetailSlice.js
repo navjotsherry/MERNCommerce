@@ -1,12 +1,13 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import serverUrl from "../url";
 
 export const fetchProductDetail = createAsyncThunk("getProductDetail", async(_id)=>{
-    const data = await fetch(`http://localhost:5000/api/v1/product/${_id}`)
+    const data = await fetch(`${serverUrl}/api/v1/product/${_id}`)
     return data.json()
 })
 
 export const createAreview = createAsyncThunk("createReview",async (newReviewData)=>{
-    const data = await fetch(`http://localhost:5000/api/v1/productReview/${newReviewData.id}`,{
+    const data = await fetch(`${serverUrl}/api/v1/productReview/${newReviewData.id}`,{
         method:"PUT",
         headers:{
             'Accept': 'application/json',

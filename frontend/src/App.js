@@ -29,9 +29,13 @@ import CreateProduct from './components/admin/CreateProduct.jsx';
 import AllOrders from './components/admin/AllOrders.jsx';
 import AllReviews from './components/admin/AllReviews.jsx';
 import OrderStatusUpdate from './components/admin/OrderStatusUpdate.jsx';
+import serverUrl from './url.js';
 
 // Main App component
 function App() {
+  //Initializing dotenv config
+  console.log("server url:",serverUrl)
+
   // Initializing the Redux dispatch function
   const dispatch = useDispatch();
 
@@ -39,7 +43,7 @@ function App() {
   
   //Fetch Stripe API key
   const getStripeAPI = async () =>{
-    try{const jsonData = await fetch('http://localhost:5000/api/v1/getStripeApiKey',{
+    try{const jsonData = await fetch(`${serverUrl}/api/v1/getStripeApiKey`,{
       credentials:'include'
     })
     const data = await jsonData.json()

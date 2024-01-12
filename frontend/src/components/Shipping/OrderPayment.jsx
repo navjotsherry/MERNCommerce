@@ -3,6 +3,7 @@ import ShippingStepper from './ShippingStepper'
 import {Elements} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 import CardPaymentForm from './CardPaymentForm'
+import serverUrl from '../../url'
 
 const OrderPayment = ({stripeApiKey}) => {
 
@@ -11,7 +12,7 @@ const OrderPayment = ({stripeApiKey}) => {
 
 
   const fetchClientSecret = async()=>{
-    const data =await fetch('http://localhost:5000/api/v1/processPayment',{
+    const data =await fetch(`${serverUrl}/api/v1/processPayment`,{
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

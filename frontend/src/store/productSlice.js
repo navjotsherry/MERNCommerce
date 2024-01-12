@@ -1,13 +1,14 @@
 import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
+import serverUrl from "../url";
 
 export const fetchProductsfunc = createAsyncThunk("products/fetchProducts", async({keyword="",currentPage=1,productsPerPage,productValueRange=[0,5000],category=""})=>{
-    const data = await fetch(`http://localhost:5000/api/v1/products?keyword=${keyword ? keyword :''}&page=${currentPage? currentPage : "1"}&limit=${productsPerPage ? productsPerPage : ""}&price[gte]=${productValueRange ? productValueRange[0] : ""}&price[lte]=${productValueRange ? productValueRange[1]: ""}${category? `&category=${category}`: ""}`)
+    const data = await fetch(`${serverUrl}/api/v1/products?keyword=${keyword ? keyword :''}&page=${currentPage? currentPage : "1"}&limit=${productsPerPage ? productsPerPage : ""}&price[gte]=${productValueRange ? productValueRange[0] : ""}&price[lte]=${productValueRange ? productValueRange[1]: ""}${category? `&category=${category}`: ""}`)
     const jsonData = await data.json()
     return jsonData
 })
 
 export const fetchProductConstants = createAsyncThunk("product/productCategories",async()=>{
-    const data = await fetch("http://localhost:5000/api/v1/getProductCategories")
+    const data = await fetch(`${serverUrl}/api/v1/getProductCategories`)
     return data.json()
 })
 

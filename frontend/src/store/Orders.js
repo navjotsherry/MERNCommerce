@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import serverUrl from "../url";
 
 export const newOrderPlace = createAsyncThunk("placeNewOrder", async(orderDetails) => {
-    const orderData = await fetch("http://localhost:5000/api/v1/createOrder",{
+    const orderData = await fetch(`${serverUrl}/api/v1/createOrder`,{
         method:"POST",
         headers:{
             "Accept":"application/json",
@@ -14,7 +15,7 @@ export const newOrderPlace = createAsyncThunk("placeNewOrder", async(orderDetail
 })
 
 export const fetchAllOrders = createAsyncThunk("fetchAllOrders", async(orderDetails) => {
-    const orderData = await fetch("http://localhost:5000/api/v1/getMyOrders",{
+    const orderData = await fetch(`${serverUrl}/api/v1/getMyOrders`,{
         credentials:"include"
     })
     return orderData.json()

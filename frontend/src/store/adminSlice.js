@@ -1,4 +1,5 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
+import serverUrl from '../url'
 
 const initialState = {
     isLoading: false,
@@ -9,14 +10,14 @@ const initialState = {
 }
 
 export const adminProductSlice = createAsyncThunk("admin/fetchProducts", async ()=>{
-    const data = await fetch("http://localhost:5000/api/v1/adminproducts",{
+    const data = await fetch(`${serverUrl}/api/v1/adminproducts`,{
         credentials:"include"
     })
     return data.json()
 })
 
 export const adminDeleteProductSlice = createAsyncThunk("admin/deleteProducts", async (id)=>{
-    const data = await fetch(`http://localhost:5000/api/v1/product/del/${id}`,{
+    const data = await fetch(`${serverUrl}/api/v1/product/del/${id}`,{
         method:"DELETE",
         credentials:"include"
     })
@@ -24,7 +25,7 @@ export const adminDeleteProductSlice = createAsyncThunk("admin/deleteProducts", 
 })
 
 export const adminAddProductSlice = createAsyncThunk("admin/addProduct", async (productInfo)=>{
-    const data = await fetch("http://localhost:5000/api/v1/new/product",{
+    const data = await fetch(`${serverUrl}/api/v1/new/product`,{
         method:"POST",
         credentials:"include",
         body:productInfo
@@ -34,7 +35,7 @@ export const adminAddProductSlice = createAsyncThunk("admin/addProduct", async (
 })
 
 export const adminAllOrders = createAsyncThunk("admin/allOrders" , async ()=>{
-    const data = await fetch("http://localhost:5000/api/v1/allOrders",{
+    const data = await fetch(`${serverUrl}/api/v1/allOrders`,{
         credentials:"include"
     })
     return data.json()
@@ -46,7 +47,7 @@ export const adminUpdateOrderStatus = createAsyncThunk("admin/updateOrderStatus"
     const body = {
         "orderStatus": shippingStatus
     }
-    const data = await fetch(`http://localhost:5000/api/v1/updateStatus/${id}`,{
+    const data = await fetch(`${serverUrl}/api/v1/updateStatus/${id}`,{
         method:"POST",
         headers:{
             "Accept":"application/json",

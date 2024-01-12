@@ -1,7 +1,8 @@
 import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
+import serverUrl from "../url";
 
 export const loginUserSlice = createAsyncThunk("loginSlice",async (authData)=>{
-    const data = await fetch("http://localhost:5000/api/v1/login",{
+    const data = await fetch(`${serverUrl}/api/v1/login`,{
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -14,7 +15,7 @@ export const loginUserSlice = createAsyncThunk("loginSlice",async (authData)=>{
 })
 
 export const updateUserSlice = createAsyncThunk('updateUserProfile',async (updatedData)=>{
-    const data = await fetch('http://localhost:5000/api/v1/updateProfile',{
+    const data = await fetch(`${serverUrl}/api/v1/updateProfile`,{
         method:"PUT",
         credentials:"include",
         body:updatedData
@@ -24,7 +25,7 @@ export const updateUserSlice = createAsyncThunk('updateUserProfile',async (updat
 
 
 export const logoutUserSlice = createAsyncThunk("logoutSlice",async ()=>{
-    const data = await fetch("http://localhost:5000/api/v1/logout",{
+    const data = await fetch(`${serverUrl}/api/v1/logout`,{
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -36,7 +37,7 @@ export const logoutUserSlice = createAsyncThunk("logoutSlice",async ()=>{
 })
 
 export const changePassword = createAsyncThunk('changePassword',async(passwordsObject)=>{
-    const data = await fetch('http://localhost:5000/api/v1/changePassword',{
+    const data = await fetch(`${serverUrl}/api/v1/changePassword`,{
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -50,7 +51,7 @@ export const changePassword = createAsyncThunk('changePassword',async(passwordsO
 
 
 export const reloadUserSlice = createAsyncThunk("reloadUser", async ()=>{
-    const data = await fetch('http://localhost:5000/api/v1/myProfile',{
+    const data = await fetch(`${serverUrl}/api/v1/myProfile`,{
       credentials:"include"
   })
     const resData = await data.json()
@@ -59,7 +60,7 @@ export const reloadUserSlice = createAsyncThunk("reloadUser", async ()=>{
 
 export const registerUser = createAsyncThunk("createUser", async (formData,{rejectWithValue})=>{
     try{
-        const responseData = await fetch("http://localhost:5000/api/v1/register",{
+        const responseData = await fetch(`${serverUrl}/api/v1/register`,{
         // headers: {
         //     'Accept': 'application/json',
         //     'Content-Type': 'multipart/formdata'
