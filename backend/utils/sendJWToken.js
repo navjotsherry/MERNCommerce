@@ -8,6 +8,8 @@ export const sendJWToken = (user,statusCode,res) =>{
         expires : new Date(
             Date.now() + process.env.COOKIE_EXPIRE_TIME * 24 *60*60*1000
         ),
+        sameSite:"none",
+        secure:true,
         httpOnly:true
     }
 
