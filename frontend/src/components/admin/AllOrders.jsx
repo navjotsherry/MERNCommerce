@@ -77,7 +77,7 @@ const AllOrders = () => {
   return (
     <div className='flex flex-col items-center'>
         <div className="text-4xl">All Orders</div>
-        <div className="w-[100%] overflow-y-hidden">
+        <div className="w-[98%] overflow-y-hidden">
             <DataGrid
                 rows={row}
                 columns={column}

@@ -54,7 +54,7 @@ const Products = () => {
   // Fetching products on component mount or when products dependencies change
   useEffect(() => {
     debouncedFetchProducts(productValueRange)
-  }, [debouncedFetchProducts,productValueRange]);
+  }, [productValueRange]);
 
   // Fetching products on component mount or when dependencies change
   useEffect(() => {

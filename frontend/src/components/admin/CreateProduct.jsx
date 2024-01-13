@@ -90,6 +90,7 @@ const CreateProduct = () => {
            <div className="flex flex-col sm:flex-row mx-auto w-full sm:items-center justify-center my-3">
             <label className='flex-[0.5] mx-2' htmlFor="category">Product Category  : </label>
             <select type="select" id='category' className='outline-none block mx-2 px-4 py-2 border-2 border-black rounded-md  focus-within:border-primary' name='category' onChange={(e)=>changeFormData(e)}>
+                <option id='' value={''}>Choose Category</option>
                 {productCategories?.map((product,index)=> (<option id={product} key={index} value={`${product}`}>{product}</option>))}
             </select>
             </div>

@@ -27,11 +27,11 @@ const FilterOptions = ({ setProductValueRange, productValueRange, setCategory, s
             {/* Price range slider. */}
             <div className="text-2xl md:mt-4">Price:</div>
             <Slider
-                getAriaLabel={() => 'Temperature range'}
+                getAriaLabel={() => 'Price range'}
                 value={productValueRange}
                 onChange={handleChange}
                 min={1}
-                max={200}
+                max={3000}
                 valueLabelDisplay="auto"
                 aria-labelledby='range-slider'
                 getAriaValueText={() => "333"}
