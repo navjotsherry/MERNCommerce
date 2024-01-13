@@ -35,7 +35,7 @@ const Shipping = () => {
                         {/* Input fields for address, city, and phone. */}
                         <div className="flex px-4 py-2 items-center justify-center border mx-8 border-black rounded-md mt-8"><input type="text" name='address' onChange={handleUserInfo} value={userInfo.address} className='mx-2 bg-transparent outline-none' placeholder='Address' /></div>
                         <div className="flex px-4 py-2 items-center justify-center border mx-8 border-black rounded-md mt-8"><input type="text" name='city' onChange={handleUserInfo} value={userInfo.city} className='mx-2 bg-transparent outline-none' placeholder='City' /></div>
-                        <div className="flex px-4 py-2 items-center justify-center border mx-8 border-black rounded-md mt-8"><input type="tel" name='phone' onChange={handleUserInfo} value={userInfo.phone} className='mx-2 bg-transparent outline-none' placeholder='Phone' /></div>
+                        <div className="flex px-4 py-2 items-center justify-center border mx-8 border-black rounded-md mt-8"><input type="tel" name='phone' onChange={handleUserInfo} value={userInfo.phone} className='mx-2 bg-transparent outline-none' placeholder='Phone' pattern='\d*' /></div>
                         {/* Dropdowns for selecting country and state. */}
                         <div className="flex px-4 py-2 items-center justify-center border mx-8 border-black rounded-md mt-8"><select onChange={(e) => setCountry(e.target.value)} type="text" className='w-52 bg-transparent outline-none'>
                             {Country.getAllCountries().map(element => <option value={element.isoCode} key={element.isoCode}>{element.name}</option>)}</select>

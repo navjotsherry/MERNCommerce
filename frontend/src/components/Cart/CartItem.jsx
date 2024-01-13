@@ -10,7 +10,7 @@ const CartItem = ({product}) => {
     <div>
       <div className="flex border-b-2 py-4 px-2 border-gray-500">
         <div className="w-56 md:w-64">
-          <img src="https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F61%2F70%2F61708115ff10932bd9bb771f3110089435ac345e.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bmen_tshirtstanks_shortsleeve%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/main]" alt="" />
+          <img src={product.image} alt={product.name} />
         </div>
         <div className="m-4 w-7/12">
           <div className="text-md sm:text-xl">{product.name}</div>

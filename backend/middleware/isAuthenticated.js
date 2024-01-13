@@ -4,8 +4,6 @@ import asyncAwaitErrorHandler from "../utils/asyncAwaitErrorHandler.js";
 import jwt from 'jsonwebtoken'
 
 export const isAuthenticated = asyncAwaitErrorHandler(async (req,res,next)=>{
-    console.log("Cookies :", req.cookies)
-    console.log("Token :", req.cookies.token)
     const {token} = req.cookies
 
     if(!token){

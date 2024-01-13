@@ -27,6 +27,13 @@ export const createOrder = asyncAwaitErrorHandler(async(req,res,next)=>{
         });
     }
 
+    const validationError = order.validateSync();
+
+    if (validationError) {
+        console.log(validationError)
+        return next(new ErrorHandler('Data validation failed. Please enter correct Data',500))
+    }
+
         const productsOrdered = Object.keys(orderObject);
         const quantityOrdered = Object.values(orderObject);
         
