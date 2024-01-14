@@ -1,5 +1,6 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import serverUrl from "../url";
+import toast from "react-hot-toast";
 
 export const fetchProductDetail = createAsyncThunk("getProductDetail", async(_id)=>{
     const data = await fetch(`${serverUrl}/api/v1/product/${_id}`)
@@ -7,7 +8,8 @@ export const fetchProductDetail = createAsyncThunk("getProductDetail", async(_id
 })
 
 export const createAreview = createAsyncThunk("createReview",async (newReviewData)=>{
-    const data = await fetch(`${serverUrl}/api/v1/productReview/${newReviewData.id}`,{
+    try{
+        const data = await fetch(`${serverUrl}/api/v1/productReview/${newReviewData.id}`,{
         method:"PUT",
         headers:{
             'Accept': 'application/json',
@@ -17,6 +19,9 @@ export const createAreview = createAsyncThunk("createReview",async (newReviewDat
         body:JSON.stringify(newReviewData)
     })
     return data.json()
+    }catch(error){
+        console.log(error)
+    }
 })
 
 
@@ -47,11 +52,14 @@ const productDetail = createSlice({
             state.err = action.error
         })
         builder.addCase(createAreview.fulfilled,(state,action)=>{
-            state.isLoading = false
-            state.productDetail = action.payload.currentProduct
+            if(action.payload.success== true){
+                state.isLoading = false
+                state.productDetail = action.payload.currentProduct
+            }else{
+                toast.error(action.payload.message || "Failed",{id:"Review Adding failed"})
+            }
         })
         builder.addCase(createAreview.pending,(state,action)=>{
-            state.productDetail = action.payload
             state.isLoading = true
         })
         builder.addCase(createAreview.rejected,(state,action)=>{
