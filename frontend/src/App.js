@@ -30,6 +30,7 @@ import AllOrders from './components/admin/AllOrders.jsx';
 import AllReviews from './components/admin/AllReviews.jsx';
 import OrderStatusUpdate from './components/admin/OrderStatusUpdate.jsx';
 import serverUrl from './url.js';
+import Footer from './components/Footer.jsx';
 
 // Main App component
 function App() {
@@ -98,6 +99,7 @@ function App() {
              <Route path='/admin-order/:_id' element={<OrderStatusUpdate/>}/>
           </Route>
         </Routes>
+        <Footer/>
       </div>
     </Router>
   );
