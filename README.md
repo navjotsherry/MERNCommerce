@@ -20,8 +20,8 @@ Follow these steps to install MERNCommerce:
 ```git clone https://github.com/navjotsherry/MERNCommerce.git```
 
 2. Navigate to the project directory and install dependencies:
-- ``` cd MERNCommerce
-npm install```
+   ```cd MERNCommerce
+   npm install```
 
 ## Usage
 
