@@ -17,17 +17,17 @@ You can check it live at https://sherryscommerce.netlify.app
 Follow these steps to install MERNCommerce:
 
 1. Clone the repository:
-'''git clone https://github.com/navjotsherry/MERNCommerce.git'''
+```git clone https://github.com/navjotsherry/MERNCommerce.git```
 
 2. Navigate to the project directory and install dependencies:
-'''cd MERNCommerce
-npm install'''
+```cd MERNCommerce
+npm install```
 
 ## Usage
 
 Start the server with:
 
-'''npm start'''
+```npm start```
 
 Access the application at `http://localhost:3000`.
 
